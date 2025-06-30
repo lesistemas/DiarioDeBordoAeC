@@ -11,35 +11,30 @@ Registro contínuo e estruturado das atividades técnicas realizadas, com foco e
 | PRs enviados                     | 1          |
 | Robôs atualizados (ChromeDriver)| 1          |
 | Horas em acompanhamento direto  | 4h         |
-| Demandas sem retorno (impedidas)| 1          |
+| Horas em Impedimento (Sem Demandas)| 2h          |
 
 ---
-
 ## 🗓️ **30/06**
 
 ### 🔧 CNU – Atualização do ChromeDriver 
-- **Tarefa:** Acompanhamento da Subida da nova versão para Homologação e após testes para Produção PR Acompanhamento técnico.
+- **Tarefa:** Acompanhamento da subida da nova versão para homologação e, após os testes, liberação para produção via Pull Request com acompanhamento técnico.
 - **Tempo gasto:** 2h  
-- **Resumo Anterior:** Atualização do ChromeDrive e Testes no Robo Blip Efetuados  dia 27/06
+- **Resumo anterior:** Atualização do ChromeDriver e testes no robô Blip realizados em 27/06.
 - **Status:** Finalizado  
 
 ---
 
 ### 🔧 Bradesco – PR de Produção IbiPlus (Calculadora)
-- **Tarefa:** Ana constatou a aprovação dos testes de homologação efetuado pelos clientes e solicitou Criação do Pull Request para produção.   
-- **Resumo Anterior:** PR já estava pronto solicitado pela própria Ana desde quarta-feira, apenas aguardando a aprovação da homologação.
-- **Execução:** 
- Ana solicitou a Release para Lider Técnico.
-- **Status:** Aguardando Processamento Release em Produção 
-
+- **Tarefa:** A Ana confirmou a aprovação dos testes de homologação feitos pelos clientes e solicitou a criação do Pull Request para produção.   
+- **Resumo anterior:** O PR já estava pronto desde quarta-feira, a pedido da própria Ana, aguardando apenas a aprovação da homologação.
+- **Execução:** Ana solicitou a release para o líder técnico.
+- **Status:** Aguardando processamento da release em produção.
 
 ---
 
 ### 🚫 Impedimento Técnico
-- **Tarefa:** Sem demanda entre 11h e fim do expediente.  
-- **Observação:** Disponibilidade registrada e validada com o time.
-
----
+- **Tarefa:** Sem demanda entre 11h e o fim do expediente.  
+- **Observação:** Disponibilidade registrada e validada com o time.---
 
 ## 📊 **Resumo da Semana (22/06 - 27/06)**
 
