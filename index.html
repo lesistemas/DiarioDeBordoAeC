@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>📘 Diário de Bordo – Squad Nexus · AeC</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1em;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #222;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f0f0f0;
+    }
+    tr:nth-child(odd) {
+      background-color: #ffffff;
+    }
+    summary {
+      cursor: pointer;
+      font-size: 1.1em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    details {
+      margin-bottom: 1em;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      background: #fafafa;
+    }
+    .impedimento {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<h1>📘 Diário de Bordo – Squad Nexus · AeC</h1>
+<p>Registro contínuo e estruturado das atividades técnicas realizadas.</p>
+
+<hr>
+
+<h2>📊 Resumo da Semana (30/06 - 04/07)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dia</th>
+      <th>Tempo</th>
+      <th>Tarefa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>30/06</td><td>02:00</td><td>CNU – Atualização do ChromeDriver – Acompanhamento Release</td></tr>
+    <tr><td>30/06</td><td>03:00</td><td class="impedimento">Impedimento – Sem Demanda</td></tr>
+    <tr><td>30/06</td><td>01:00</td><td>Impedimento – Sistema do Cliente IbiPlus (Necessidade de Login)</td></tr>
+    <tr><td>30/06</td><td>02:00</td><td>Bradesco – [INCIDENTE NEG.] Mesa de Decisão SAC – Análise inicial do problema</td></tr>
+    <tr><td>01/07</td><td>08:00</td><td>Bradesco – [INCIDENTE NEG.] MESA DE DECISÃO SAC – CAMPO TELEFÔNICO – lógica de bloqueio implementada</td></tr>
+    <tr><td>02/07</td><td>08:00</td><td>Bradesco – [INCIDENTE NEG.] MESA DE DECISÃO SAC – validação funcional e encaminhamento para homologação</td></tr>
+  </tbody>
+</table>
+
+<details>
+  <summary>🗓️ 02/07 – Validação funcional e encaminhamento</summary>
+  <ul>
+    <li><strong>Tarefa:</strong> Testes gerais e validação da funcionalidade com a PO, além do processo de publicação para homologação.</li>
+    <li><strong>Tempo gasto:</strong> 8h</li>
+    <li><strong>Resumo:</strong>
+      <ul>
+        <li>Realizados testes locais para verificar o impacto da nova lógica implementada.</li>
+        <li>Apresentado vídeo à PO Letícia, que aprovou a funcionalidade.</li>
+        <li>Branches criadas para ambiente de homologação.</li>
+        <li>Problema de acesso resolvido com apoio do analista Danilo.</li>
+      </ul>
+    </li>
+    <li><strong>Próximos passos:</strong> Testes no ambiente de homologação com a PO e clientes.</li>
+  </ul>
+</details>
+
+<details>
+  <summary>🗓️ 01/07 – Implementação da lógica de bloqueio</summary>
+  <ul>
+    <li><strong>Tarefa:</strong> Bloqueio da continuação do formulário se telefone inválido.</li>
+    <li><strong>Tempo gasto:</strong> 8h</li>
+    <li><strong>Status:</strong>
+      <ul>
+        <li>Análise do componente TextBoxDinamico com máscara.</li>
+        <li>Adicionada validação de 11 dígitos e mensagem de erro.</li>
+        <li>Bloqueio funcional do botão de envio.</li>
+      </ul>
+    </li>
+  </ul>
+</details>
+
+<details>
+  <summary>🗓️ 30/06 – Análise inicial e impedimentos</summary>
+  <ul>
+    <li><strong>ChromeDriver:</strong> Acompanhamento da atualização e liberação.</li>
+    <li><strong>Bradesco:</strong> Ajustes para alcançar tela do formulário.</li>
+    <li><strong>Impedimentos:</strong>
+      <ul>
+        <li>Sem demanda (3h)</li>
+        <li>Falta de login IbiPlus (1h)</li>
+      </ul>
+    </li>
+    <li><strong>Total:</strong> 8h</li>
+  </ul>
+</details>
+</body>
+</html>
