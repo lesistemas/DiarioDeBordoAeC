@@ -1,1 +1,30 @@
-c
+07/07	Impedimentnto - Sem Demanda	03:00
+07/07	[REUNIÃO] Alinhamento inicial da demanda – Contestação TIM (Letícia + Time)	01:00
+07/07	Impedimento - Sem Acesso as VMs	da tim04:00
+
+
+hoje iniciou o dia com impedimento de VMs sem acesso sanado,
+
+necessidade agora instalacao do miracle dentro da VM, 
+		solicitei para leticia me arrumou um link para imnstalacao, Danilo m,e passou os links de acesso aos sistemas.
+
+		Link de acesso: http://siebelcrm.internal.timbrasil.com.br/siebel/app/
+			Erro atual: "siebel_app not configured in the Deployed Profile."
+			o sistema Siebel está tentando carregar um aplicativo que não está configurado corretamente no ambiente do servidor.
+
+
+
+Apareceu esta tarefa para fazer
+	subida para PRD sos dois uqe foi aprovado as mudancças
+
+	boa tarde, leo! Gera os prs desses dois itens por favor, subiremos eles no fim do dia após o HMUD.
+ 
+Epic 290682: [INCIDENTE NEG.] MESA DE DECISÃO SAC - CAMPOS TELEFONICOS
+Epic 306779: [INCIDENTE] FRONT DE CONTESTAÇÃO - API E-MAIL
+ 
+criado a PRE de producao dos 2
+1(h)
+
+
+
+

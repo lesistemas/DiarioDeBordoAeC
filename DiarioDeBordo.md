@@ -3,6 +3,69 @@
 Registro contínuo e estruturado das atividades técnicas realizadas.
 
 ---
+
+
+## 🗓️ **07/07**
+
+###  Resumo de Horas do Dia
+<table>
+  <thead>
+    <tr>
+      <th style="color:#000000">Dia</th>
+      <th style="color:#000000">Tempo</th>
+      <th style="color:#000000">Tarefa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background-color:#ffffff; color:#000000">
+      <td>07/07</td>
+      <td>01:00</td>
+      <td>[REUNIÃO] Alinhamento inicial da demanda – Contestação TIM (Letícia + Time)</td>
+    </tr>
+    <tr style="background-color:#ffffff; color:#000000">
+      <td>07/07</td>
+      <td>03:00</td>
+      <td style="color:#ff0000">Impedimento – Sem Demanda</td>
+    </tr>
+    <tr style="background-color:#ffffff; color:#000000">
+      <td>07/07</td>
+      <td>04:00</td>
+      <td style="color:#ff0000">Impedimento – Sem Acesso às VMs da TIM</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### 🧠 [REUNIÃO] Alinhamento inicial da demanda – Contestação TIM (Letícia + Time)
+- **Tarefa:** Participação em reunião com Letícia e o time para compreender os pontos iniciais da nova demanda de contestação automática para a TIM.
+- **Resumo:**  
+  - Foram levantados os pontos-chave da contestação automática.
+  - Alinhamento da proposta inicial do robô e definições das **duas POCs viáveis** discutidas com base nas informações do cliente:
+    - **POC 1:** Análise e extração via planilha + upload manual via Portal TIM.
+    - **POC 2:** Automação de leitura de PDF com regras fixas + envio automatizado via API (a depender da validação de viabilidade).
+  - Discussão sobre as restrições técnicas de acesso ao ambiente da TIM e limitações iniciais.
+- **Resultado:** Criado plano inicial para execução das duas POCs. Aguardar acesso e permissões.
+- **Tempo gasto:** 1h
+
+---
+
+### 🚫 Impedimento – Sem Demanda
+- **Tarefa:** Ausência total de novas demandas úteis para atuação técnica ao longo da manhã.
+- **Tempo Registro:** 3h  
+- **Observação:** Aguardando movimentação ou liberação de tarefas em backlog.
+
+---
+
+### 🚫 Impedimento – Sem Acesso às VMs da TIM
+- **Tarefa:** Tentativa de acesso às máquinas virtuais para preparação das POCs da contestação TIM, sem sucesso.
+- **Descrição:** Todas as tentativas resultaram em falha de autenticação ou erro de rede.
+- **Impacto:** Impedimento direto na continuação da tarefa prática para as provas de conceito.
+- **Tempo Registro:** 4h  
+- **Observação:** Acesso ainda em tratativa com time técnico responsável.
+
+
+---
 ### 📊 **Resumo da Semana (30/06 - 04/07)**
 
 <table>
@@ -44,7 +107,9 @@ Registro contínuo e estruturado das atividades técnicas realizadas.
       <td>08:00</td>
       <td>Bradesco – [INCIDENTE NEG.] MESA DE DECISÃO SAC – CAMPO TELEFÔNICO – validação funcional e encaminhamento para homologação</td>
     </tr>
-    
+    <tr><td>03/07</td><td>04:00</td><td>Bradesco – [INCIDENTE NEG.] MESA DE DECISÃO SAC – CAMPO TELEFÔNICO – publicação e início do release</td></tr>
+<tr><td>03/07</td><td>04:00</td><td class="impedimento">Impedimento – Sem Demanda</td></tr>
+
   </tbody>
 </table>
 
