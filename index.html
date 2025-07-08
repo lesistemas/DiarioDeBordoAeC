@@ -89,7 +89,241 @@
 
       <tr><td colspan="3" style="height: 10px; border: none;"></td></tr>
 
+      <!-- 04/07 --><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>📘 Diário de Bordo – Squad Nexus · AeC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --cor-fundo: #f8f9fa;
+      --cor-texto: #222;
+      --cor-primaria: #1d3557;
+      --cor-secundaria: #457b9d;
+      --cor-terciaria: #a8dadc;
+      --cor-impr: #e63946;
+      --cor-card: #ffffff;
+    }
+
+    [data-theme="dark"] {
+      --cor-fundo: #121212;
+      --cor-texto: #e0e0e0;
+      --cor-primaria: #90caf9;
+      --cor-secundaria: #64b5f6;
+      --cor-terciaria: #457b9d;
+      --cor-impr: #ef5350;
+      --cor-card: #1e1e1e;
+    }
+
+    body {
+      background-color: var(--cor-fundo);
+      color: var(--cor-texto);
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      padding: 20px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    h1 {
+      font-size: 1.8em;
+      color: var(--cor-primaria);
+      margin-bottom: 0.2em;
+    }
+
+    p {
+      margin-bottom: 1.5em;
+      font-size: 1em;
+      color: var(--cor-texto);
+    }
+
+    button.theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 8px 16px;
+      background-color: var(--cor-secundaria);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    summary {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: var(--cor-secundaria);
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 40px;
+      font-size: 0.95em;
+    }
+
+    thead th {
+      background-color: var(--cor-secundaria);
+      color: #000;
+      text-align: left;
+      padding: 10px 8px;
+    }
+
+    tbody td {
+      padding: 8px;
+      border-top: 1px solid #444;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    .impedimento {
+      color: var(--cor-impr);
+      font-weight: bold;
+    }
+
+    tr.spacer td {
+      height: 10px;
+      border: none;
+    }
+
+    details {
+      margin-bottom: 15px;
+      background: var(--cor-card);
+      border: 1px solid var(--cor-terciaria);
+      border-left: 4px solid var(--cor-secundaria);
+      padding: 10px 15px;
+      border-radius: 5px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    code {
+      background: #eee;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+
+    ul {
+      margin-left: 20px;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 600px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      thead {
+        display: none;
+      }
+      tbody td {
+        position: relative;
+        padding-left: 50%;
+        border: none;
+        border-bottom: 1px solid #444;
+      }
+      tbody td::before {
+        position: absolute;
+        left: 10px;
+        top: 8px;
+        font-weight: bold;
+        white-space: nowrap;
+      }
+      tbody td:nth-child(1)::before { content: "Dia"; }
+      tbody td:nth-child(2)::before { content: "Tempo"; }
+      tbody td:nth-child(3)::before { content: "Tarefa"; }
+    }
+  </style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()">🌗 Mudar Tema</button>
+
+<h1>📘 Diário de Bordo – Squad Nexus · AeC</h1>
+<p>Registro contínuo e estruturado das atividades técnicas realizadas.</p>
+
+<details open>
+  <summary>📊 Resumo Semanal – 30/06 a 04/07</summary>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Dia</th>
+        <th>Tempo</th>
+        <th>Tarefa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 30/06 -->
+      <tr><td><strong>30/06</strong></td><td>02:00</td><td>CNU – Atualização do ChromeDriver – Acompanhamento Release</td></tr>
+      <tr><td></td><td>03:00</td><td class="impedimento">Impedimento – Sem Demanda</td></tr>
+      <tr><td></td><td>01:00</td><td class="impedimento">Impedimento – Sistema do Cliente IbiPlus (Login)</td></tr>
+      <tr><td></td><td>02:00</td><td>Bradesco – Mesa SAC – Análise inicial do problema</td></tr>
+      <tr class="spacer"><td colspan="3"></td></tr>
+
+      <!-- 01/07 -->
+      <tr><td><strong>01/07</strong></td><td>08:00</td><td>Bradesco – Mesa SAC – Validação do telefone (bloqueio com 11 dígitos)</td></tr>
+      <tr class="spacer"><td colspan="3"></td></tr>
+
+      <!-- 02/07 -->
+      <tr><td><strong>02/07</strong></td><td>08:00</td><td>Bradesco – Mesa SAC – Encaminhamento para homologação</td></tr>
+      <tr class="spacer"><td colspan="3"></td></tr>
+
+      <!-- 03/07 -->
+      <tr><td><strong>03/07</strong></td><td>04:00</td><td>Bradesco – Publicação do release e envio à PO</td></tr>
+      <tr><td></td><td>04:00</td><td class="impedimento">Impedimento – Sem novas demandas atribuídas após entrega</td></tr>
+      <tr class="spacer"><td colspan="3"></td></tr>
+
       <!-- 04/07 -->
+      <tr><td><strong>04/07</strong></td><td>08:00</td><td>Bradesco – Correção API de E-mail no FRONT de contestação</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details>
+  <summary>🗓️ 04/07 – Correção de envio de e-mail via API</summary>
+  <ul>
+    <li><strong>Tarefa:</strong> Ajuste do sistema <code>bradescard.Contestacao.API</code> para uso da nova API de envio de e-mails.</li>
+    <li><strong>Tempo gasto:</strong> 8h</li>
+    <li><strong>Resumo:</strong>
+      <ul>
+        <li>Erro no FRONT identificado e tratado.</li>
+        <li>API configurada com token e autenticação tipo <code>password</code>.</li>
+        <li>Testes feitos com apoio do Danilo e publicação realizada.</li>
+      </ul>
+    </li>
+  </ul>
+</details>
+
+<!-- Adicione os demais <details> de dias anteriores aqui se desejar -->
+
+<script>
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute("data-theme");
+    const next = current === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  }
+
+  // Aplicar preferência salva ou do sistema
+  const saved = localStorage.getItem("theme");
+  if (saved) {
+    document.documentElement.setAttribute("data-theme", saved);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+</script>
+
+</body>
+</html>
+
       <tr><td><strong>04/07</strong></td><td>08:00</td><td>Bradesco – Correção API de E-mail no FRONT de contestação</td></tr>
 
     </tbody>
