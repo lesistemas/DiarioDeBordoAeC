@@ -183,13 +183,8 @@
 .dia-4 td { background-color: rgba(255, 255, 255, 0.12); }
 .dia-5 td { background-color: rgba(255, 255, 255, 0.15); }
 
-[data-theme="dark"] .dia-1 td { background-color: #1e1e1e; }
-[data-theme="dark"] .dia-2 td { background-color: #222; }
-[data-theme="dark"] .dia-3 td { background-color: #252525; }
-[data-theme="dark"] .dia-4 td { background-color: #2a2a2a; }
-[data-theme="dark"] .dia-5 td { background-color: #2f2f2f; }
-
-
+.dia-par td { background-color: #1e1e1e; }
+.dia-impar td { background-color: #222; }
     .impedimento {
       color: var(--cor-impr);
       font-weight: bold;
@@ -263,19 +258,19 @@
     </thead>
     <tbody>
       <!-- 30/06 -->
-<tr class="dia-1"><td><strong>30/06</strong></td><td>02:00</td><td>CNU – Atualização do ChromeDriver – Acompanhamento Release</td></tr>
-<tr class="dia-1"><td></td><td>03:00</td><td class="impedimento">Impedimento – Sem Demanda</td></tr>
-<tr class="dia-1"><td></td><td>01:00</td><td class="impedimento">Impedimento – Sistema do Cliente IbiPlus (Login)</td></tr>
-<tr class="dia-1"><td></td><td>02:00</td><td>Bradesco – Mesa SAC – Análise inicial do problema</td></tr>
+      <tr class="dia-impar"><td><strong>30/06</strong></td><td>02:00</td><td>CNU – Atualização do ChromeDriver – Acompanhamento Release</td></tr>
+      <tr class="dia-impar"><td></td><td>03:00</td><td class="impedimento">Impedimento – Sem Demanda</td></tr>
+      <tr class="dia-impar"><td></td><td>01:00</td><td class="impedimento">Impedimento – Sistema do Cliente IbiPlus (Login)</td></tr>
+      <tr class="dia-impar"><td></td><td>02:00</td><td>Bradesco – Mesa SAC – Análise inicial do problema</td></tr>
 
-<tr class="dia-2"><td><strong>01/07</strong></td><td>08:00</td><td>Bradesco – Mesa SAC – Validação do telefone (bloqueio com 11 dígitos)</td></tr>
+      <tr class="dia-par"><td><strong>01/07</strong></td><td>08:00</td><td>Bradesco – Mesa SAC – Validação do telefone (bloqueio com 11 dígitos)</td></tr>
 
-<tr class="dia-3"><td><strong>02/07</strong></td><td>08:00</td><td>Bradesco – Mesa SAC – Encaminhamento para homologação</td></tr>
+      <tr class="dia-impar"><td><strong>02/07</strong></td><td>08:00</td><td>Bradesco – Mesa SAC – Encaminhamento para homologação</td></tr>
 
-<tr class="dia-4"><td><strong>03/07</strong></td><td>04:00</td><td>Bradesco – Publicação do release e envio à PO</td></tr>
-<tr class="dia-4"><td></td><td>04:00</td><td class="impedimento">Impedimento – Sem novas demandas atribuídas após entrega</td></tr>
+      <tr class="dia-par"><td><strong>03/07</strong></td><td>04:00</td><td>Bradesco – Publicação do release e envio à PO</td></tr>
+      <tr class="dia-par"><td></td><td>04:00</td><td class="impedimento">Impedimento – Sem novas demandas atribuídas após entrega</td></tr>
 
-<tr class="dia-5"><td><strong>04/07</strong></td><td>08:00</td><td>Bradesco – Correção API de E-mail no FRONT de contestação</td></tr>
+      <tr class="dia-impar"><td><strong>04/07</strong></td><td>08:00</td><td>Bradesco – Correção API de E-mail no FRONT de contestação</td></tr>
     </tbody>
   </table>
 </details>
