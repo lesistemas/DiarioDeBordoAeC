@@ -26,7 +26,7 @@
       background-color: #f0f0f0;
     }
     tr:nth-child(odd) {
-      background-color: #ffffff;
+       background-color: #ffffff;
     }
     summary {
       cursor: pointer;
@@ -74,6 +74,61 @@
 </table>
 
 <details>
+  <summary>🗓️ 04/07 – Correção de envio de e-mail via API</summary>
+  <ul>
+    <li><strong>Tarefa:</strong> Ajuste do sistema <code>bradescard.Contestacao.API</code> para uso da nova API de envio de e-mails, com autenticação por token.</li>
+    <li><strong>Tempo gasto:</strong> 8h</li>
+    <li><strong>Resumo:</strong>
+      <ul>
+        <li>Recebida demanda vinculada ao erro no FRONT de contestação.</li>
+        <li>Com apoio de Danilo, foram realizadas mudanças no código para integração da API externa de e-mails.</li>
+        <li>Adicionado novo parâmetro para apontar corretamente ao serviço de e-mails.</li>
+        <li>Como era o primeiro uso da API, foi necessário solicitar token e configurar autenticação do tipo <code>password</code>.</li>
+        <li>Nos testes, meu e-mail apresentou falha no navegador. Utilizei o e-mail do Danilo para validações.</li>
+        <li>Testes via Postman realizados com sucesso.</li>
+        <li>Alterações publicadas em homologação para testes com clientes.</li>
+      </ul>
+    </li>
+    <li><strong>Demanda vinculada:</strong>
+      <ul>
+        <li>User Story <strong>#306780</strong> – FRONT DE CONTESTAÇÃO – API E-MAIL</li>
+        <li>Epic <strong>#306779</strong> – FRONT DE CONTESTAÇÃO – API E-MAIL</li>
+      </ul>
+    </li>
+  </ul>
+</details>
+
+
+<details>
+  <summary>🗓️ 03/07 – Publicação e início do release</summary>
+  <ul>
+    <li><strong>Tarefa:</strong> Finalização dos testes e correção da ausência de versão para publicação em homologação.</li>
+    <li><strong>Tempo gasto:</strong> 4h</li>
+    <li><strong>Resumo:</strong>
+      <ul>
+        <li>Corrigida a pendência da versão ausente nos arquivos.</li>
+        <li>Realizados testes com as versões existentes até homologação.</li>
+        <li>Publicação realizada e aceita com sucesso.</li>
+        <li>Início do processo de release, que passou completamente sem falhas.</li>
+        <li>Status comunicado para a PO, que irá encaminhar para validação dos clientes.</li>
+      </ul>
+    </li>
+    <li><strong>Próximos passos:</strong> Aguardar retorno da PO e dos clientes sobre a validação da entrega.</li>
+  </ul>
+</details>
+
+<details>
+  <summary>🚫 03/07 – Impedimento: Sem Demanda</summary>
+  <ul>
+    <li><strong>Tarefa:</strong> Sem novas demandas após finalização da entrega, entre 13h e 17h.</li>
+    <li><strong>Tempo Registro:</strong> 4h</li>
+    <li><strong>Observação:</strong> Disponibilidade registrada e validada com o time. Aguardando nova atribuição.</li>
+  </ul>
+</details>
+
+
+
+<details>
   <summary>🗓️ 02/07 – Validação funcional e encaminhamento</summary>
   <ul>
     <li><strong>Tarefa:</strong> Testes gerais e validação da funcionalidade com a PO, além do processo de publicação para homologação.</li>
@@ -119,5 +174,6 @@
     <li><strong>Total:</strong> 8h</li>
   </ul>
 </details>
+
 </body>
 </html>
