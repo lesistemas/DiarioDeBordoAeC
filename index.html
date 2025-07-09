@@ -253,33 +253,129 @@
 
 </body>
 </html>
+<details open>
+    <summary style="font-size: 1.2em; font-weight: bold; color: var(--cor-secundaria); margin-bottom: 10px;">
+        📊 Semana – 07/07 a 11/07
+    </summary>
 
-<details>
-    <summary>🗓️ 07/07 – Contestação TIM: Reunião e impedimentos</summary>
-    <ul>
-        <li><strong>Tarefa: Reunião inicial com Letícia e time (1h)</strong> – Alinhamento sobre a demanda de contestação automática TIM. Foram definidas duas POCs para investigar viabilidade técnica e operacional.</li>
-        <li>
-            <strong>POCs definidas:</strong>
-            <ul>
+    <details open>
+        <summary style="font-size: 1.2em; font-weight: bold; color: var(--cor-secundaria); margin-bottom: 10px;">
+            📊 Resumo Semanal
+        </summary>
+        <!DOCTYPE html>
+            <html lang="pt-BR">
+            <head>
+                <meta charset="UTF-8">
+                <title>📘 Diário de Bordo – Squad Nexus · AeC</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <style>
+                    .impedimento {
+                        color: #e63946;
+                        font-weight: bold;
+                    }
+
+                    .dia-impar {
+                        background-color: #ffffff;
+                    }
+
+                    .dia-par {
+                        background-color: #f0f0f0;
+                    }
+
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                    }
+
+                    th, td {
+                        border: 1px solid #ccc;
+                        padding: 8px;
+                    }
+
+                    th {
+                        background-color: #1d3557;
+                        color: white;
+                    }
+                </style>
+            </head>
+            <body>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dia</th>
+                            <th>Tempo</th>
+                            <th>Tarefa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 07/07 -->
+                        <tr class="dia-impar"><td><strong>07/07</strong></td><td>01:00</td><td>[REUNIÃO] Alinhamento inicial da demanda – Contestação TIM</td></tr>
+                        <tr class="dia-impar"><td></td><td>03:00</td><td class="impedimento">Impedimento – Sem Demanda</td></tr>
+                        <tr class="dia-impar"><td></td><td>04:00</td><td class="impedimento">Impedimento – Sem Acesso às VMs da TIM</td></tr>
+
+                        <!-- 08/07 -->
+                        <tr class="dia-par"><td><strong>08/07</strong></td><td>07:00</td><td>Configuração de ambiente, instalação do Miracle e acesso aos sistemas TIM X / Siebel</td></tr>
+                        <tr class="dia-par"><td></td><td>01:00</td><td>Subida para Produção – PR dos projetos MESA DE DECISÃO e FRONT DE CONTESTAÇÃO</td></tr>
+                    </tbody>
+                </table>
+            </body>
+        </html>
+    </details>
+
+    <details>
+        <summary>🗓️ 08/07 – Configuração de ambiente, instalação do Miracle e acesso aos sistemas TIM X / Siebel</summary>
+        <ul>
+            <li><strong>Tarefa:</strong> Preparo das máquinas e ambiente de acesso aos sistemas da TIM.</li>
+            <li><strong>Tempo gasto:</strong> 7h</li>
+            <li>
+                <strong>Resumo:</strong>
                 <ul>
-                    <li>POC 1: Planilha + Upload Manual via Portal TIM</li>
-                    <li>POC 2: Leitura de PDF + Envio por API (a depender da viabilidade)</li>
+                    <li>Início do dia com liberação de acesso às VMs.</li>
+                    <li>Necessidade de instalar o Miracle dentro da VM para permitir acesso completo.</li>
+                    <li>Letícia forneceu o link correto para instalação do Miracle.</li>
+                    <li>Danilo compartilhou os links diretos de acesso aos sistemas TIM X e Siebel (sem uso do Miracle).</li>
+                    <li>Realizada configuração e login nas máquinas com credenciais fornecidas.</li>
+                    <li>Acesso ao sistema Siebel validado com sucesso.</li>
+                    <li>O sistema TIM X ainda apresentou falhas de autenticação, pendente de validação final.</li>
                 </ul>
-            </ul>
-        </li>
-        <li>
-            <strong>Impedimentos:</strong>
-            <ul>
-                <li><strong>Impedimento: Sem demanda (3h)</strong> – Nenhuma atividade disponível para atuação no período da manhã.</li>
-                <li><strong>Impedimento: Sem acesso às VMs da TIM (4h)</strong> – Tentativas de acesso falharam por erro técnico, impedindo a preparação das POCs.</li>
-            </ul>
-        </li>
-        <li><strong>Total:</strong> 8h</li>
-    </ul>
+            </li>
+            <li>
+                <strong>Demanda vinculada:</strong>
+                <ul>
+                    <li>Suporte geral à retomada de atividades nos sistemas TIM</li>
+                    <li>Solicitação de instalação e testes de ambiente interno</li>
+                </ul>
+            </li>
+        </ul>
+    </details>
+
+    <details>
+        <summary>🗓️ 07/07 – Contestação TIM: Reunião e impedimentos</summary>
+        <ul>
+            <li><strong>Tarefa: Reunião inicial com Letícia e time (1h)</strong> – Alinhamento sobre a demanda de contestação automática TIM. Foram definidas duas POCs para investigar viabilidade técnica e operacional.</li>
+            <li>
+                <strong>POCs definidas:</strong>
+                <ul>
+                    <ul>
+                        <li>POC 1: Planilha + Upload Manual via Portal TIM</li>
+                        <li>POC 2: Leitura de PDF + Envio por API (a depender da viabilidade)</li>
+                    </ul>
+                </ul>
+            </li>
+            <li>
+                <strong>Impedimentos:</strong>
+                <ul>
+                    <li><strong>Impedimento: Sem demanda (3h)</strong> – Nenhuma atividade disponível para atuação no período da manhã.</li>
+                    <li><strong>Impedimento: Sem acesso às VMs da TIM (4h)</strong> – Tentativas de acesso falharam por erro técnico, impedindo a preparação das POCs.</li>
+                </ul>
+            </li>
+            <li><strong>Total:</strong> 8h</li>
+        </ul>
+    </details>
 </details>
 
-
-<details open>
+<details>
     <summary style="font-size: 1.2em; font-weight: bold; color: var(--cor-secundaria); margin-bottom: 10px;">
         📊 Semana – 30/06 a 04/07
     </summary>

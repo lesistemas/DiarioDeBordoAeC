@@ -3,6 +3,8 @@
 07/07	Impedimento - Sem Acesso as VMs	da tim04:00
 
 
+
+
 hoje iniciou o dia com impedimento de VMs sem acesso sanado,
 
 necessidade agora instalacao do miracle dentro da VM, 

@@ -3,7 +3,55 @@
 Registro contínuo e estruturado das atividades técnicas realizadas.
 
 ---
+## 🗓️ **08/07**
 
+###  Resumo de Horas do Dia
+<table>
+  <thead>
+    <tr>
+      <th style="color:#000000">Dia</th>
+      <th style="color:#000000">Tempo</th>
+      <th style="color:#000000">Tarefa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background-color:#ffffff; color:#000000">
+      <td>08/07</td>
+      <td>07:00</td>
+      <td>Configuração de ambiente, instalação do Miracle e acesso aos sistemas TIM X / Siebel</td>
+    </tr>
+    <tr style="background-color:#ffffff; color:#000000">
+      <td>08/07</td>
+      <td>01:00</td>
+      <td>Subida para Produção – PR dos projetos MESA DE DECISÃO e FRONT DE CONTESTAÇÃO</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### 🛠️ Configuração de ambiente, instalação do Miracle e acesso aos sistemas TIM X / Siebel
+- **Tarefa:** Preparo do ambiente e apoio para acesso a sistemas utilizados na TIM.
+- **Resumo:**  
+  - Acesso às VMs foi normalizado no início do dia.
+  - Necessidade de instalar o Miracle dentro da VM para operar certos acessos.
+  - Link para instalação fornecido por Letícia.
+  - Danilo disponibilizou links diretos para os sistemas **TIM X** e **Siebel**, evitando uso do Miracle em alguns casos.
+  - Configuradas as máquinas com login/senha.
+  - Acesso ao **Siebel** confirmado; **TIM X** ainda com falhas de autenticação.
+- **Tempo gasto:** 7h
+
+---
+
+### 🚀 Subida para Produção – PR dos projetos MESA DE DECISÃO e FRONT DE CONTESTAÇÃO
+- **Tarefa:** Geração das PRs de produção para dois projetos com mudanças aprovadas.
+- **Resumo:**  
+  - Solicitação recebida para gerar as PRs e agendar subida após HMUD.
+  - Projetos:
+    - **Epic 290682**: [INCIDENTE NEG.] MESA DE DECISÃO SAC – CAMPOS TELEFÔNICOS
+    - **Epic 306779**: [INCIDENTE] FRONT DE CONTESTAÇÃO – API E-MAIL
+  - PRs criadas e prontas para o deploy.
+- **Tempo gasto:** 1h
 
 ## 🗓️ **07/07**
 
