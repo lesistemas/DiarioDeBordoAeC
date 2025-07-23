@@ -2,538 +2,808 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>📘 Diário de Bordo – Squad Nexus · AeC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diário de Bordo – Squad Nexus · AeC</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            line-height: 1.6;
             margin: 20px;
+            background-color: #f9f9f9;
         }
-
+        h1, h2, h3 {
+            color: #333;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 1em;
+            margin-bottom: 20px;
         }
-
         th, td {
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
-
         th {
-            background-color: #222;
-            color: white;
+            background-color: #f2f2f2;
+            color: #000;
         }
-
         tr:nth-child(even) {
             background-color: #f0f0f0;
         }
-
-        tr:nth-child(odd) {
-            background-color: #ffffff;
-        }
-
-        summary {
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        details {
-            margin-bottom: 1em;
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 5px;
-            background: #fafafa;
-        }
-
         .impedimento {
-            color: red;
+            color: #ff0000;
         }
-    </style>
-    <style>
-        :root {
-            --cor-fundo: #f8f9fa;
-            --cor-texto: #222;
-            --cor-primaria: #1d3557;
-            --cor-secundaria: #457b9d;
-            --cor-terciaria: #a8dadc;
-            --cor-impr: #e63946;
-            --cor-card: #ffffff;
+        .section {
+            margin-bottom: 40px;
         }
-
-        [data-theme="dark"] {
-            --cor-fundo: #121212;
-            --cor-texto: #e0e0e0;
-            --cor-primaria: #90caf9;
-            --cor-secundaria: #64b5f6;
-            --cor-terciaria: #457b9d;
-            --cor-impr: #ef5350;
-            --cor-card: #1e1e1e;
+        .section h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
         }
-
-        body {
-            background-color: var(--cor-fundo);
-            color: var(--cor-texto);
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            margin: 0;
-            padding: 20px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        h1 {
-            font-size: 1.8em;
-            color: var(--cor-primaria);
-            margin-bottom: 0.2em;
-        }
-
-        p {
-            margin-bottom: 1.5em;
-            font-size: 1em;
-            color: var(--cor-texto);
-        }
-
-        button.theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 8px 16px;
-            background-color: var(--cor-secundaria);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        summary {
+        .emoji {
             font-size: 1.2em;
-            font-weight: bold;
-            color: var(--cor-secundaria);
-            cursor: pointer;
-            margin-bottom: 10px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0 40px;
-            font-size: 0.95em;
-        }
-
-        thead th {
-            background-color: var(--cor-secundaria);
-            color: #000;
-            text-align: left;
-            padding: 10px 8px;
-        }
-
-        tbody td {
-            padding: 8px;
-            border-top: 1px solid #444;
-        }
-        /* Cada grupo de dia recebe uma cor diferente de fundo */
-        .dia-impar td {
-            background-color: rgba(255, 255, 255, 0.03);
-        }
-
-        .dia-par td {
-            background-color: rgba(255, 255, 255, 0.06);
-        }
-
-        G.
-        .dia-par td {
-            background-color: #1e1e1e;
-        }
-
-        .dia-impar td {
-            background-color: #222;
-        }
-
-        .impedimento {
-            color: var(--cor-impr);
-            font-weight: bold;
-        }
-
-        tr.spacer td {
-            height: 10px;
-            border: none;
-        }
-
-        details {
-            margin-bottom: 15px;
-            background: var(--cor-card);
-            border: 1px solid var(--cor-terciaria);
-            border-left: 4px solid var(--cor-secundaria);
-            padding: 10px 15px;
-            border-radius: 5px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-        }
-
-        code {
-            background: #eee;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-family: monospace;
-        }
-
-        ul {
-            margin-left: 20px;
-        }
-
-        li {
-            margin-bottom: 4px;
-        }
-
-        @media (max-width: 600px) {
-            table, thead, tbody, th, td, tr {
-                display: block;
-            }
-
-            thead {
-                display: none;
-            }
-
-            tbody td {
-                position: relative;
-                padding-left: 50%;
-                border: none;
-                border-bottom: 1px solid #444;
-            }
-
-                tbody td::before {
-                    position: absolute;
-                    left: 10px;
-                    top: 8px;
-                    font-weight: bold;
-                    white-space: nowrap;
-                }
-
-                tbody td:nth-child(1)::before {
-                    content: "Dia";
-                }
-
-                tbody td:nth-child(2)::before {
-                    content: "Tempo";
-                }
-
-                tbody td:nth-child(3)::before {
-                    content: "Tarefa";
-                }
+            margin-right: 5px;
         }
     </style>
-
 </head>
 <body>
-
     <h1>📘 Diário de Bordo – Squad Nexus · AeC</h1>
     <p>Registro contínuo e estruturado das atividades técnicas realizadas.</p>
+    <hr>
 
-
-    <!-- Adicione os demais <details> de dias anteriores aqui se desejar -->
-
-    <script>
-        function toggleTheme() {
-            const current = document.documentElement.getAttribute("data-theme");
-            const next = current === "dark" ? "light" : "dark";
-            document.documentElement.setAttribute("data-theme", next);
-            localStorage.setItem("theme", next);
-        }
-
-        // Aplicar preferência salva ou do sistema
-        const saved = localStorage.getItem("theme");
-        if (saved) {
-            document.documentElement.setAttribute("data-theme", saved);
-        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.setAttribute("data-theme", "dark");
-        }
-    </script>
-
-</body>
-</html>
-<details open>
-    <summary style="font-size: 1.2em; font-weight: bold; color: var(--cor-secundaria); margin-bottom: 10px;">
-        📊 Semana – 07/07 a 11/07
-    </summary>
-
-    <details open>
-        <summary style="font-size: 1.2em; font-weight: bold; color: var(--cor-secundaria); margin-bottom: 10px;">
-            📊 Resumo Semanal
-        </summary>
-        <!DOCTYPE html>
-            <html lang="pt-BR">
-            <head>
-                <meta charset="UTF-8">
-                <title>📘 Diário de Bordo – Squad Nexus · AeC</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <style>
-                    .impedimento {
-                        color: #e63946;
-                        font-weight: bold;
-                    }
-
-                    .dia-impar {
-                        background-color: #ffffff;
-                    }
-
-                    .dia-par {
-                        background-color: #f0f0f0;
-                    }
-
-                    table {
-                        width: 100%;
-                        border-collapse: collapse;
-                    }
-
-                    th, td {
-                        border: 1px solid #ccc;
-                        padding: 8px;
-                    }
-
-                    th {
-                        background-color: #1d3557;
-                        color: white;
-                    }
-                </style>
-            </head>
-            <body>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Dia</th>
-                            <th>Tempo</th>
-                            <th>Tarefa</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- 07/07 -->
-                        <tr class="dia-impar"><td><strong>07/07</strong></td><td>01:00</td><td>[REUNIÃO] Alinhamento inicial da demanda – Contestação TIM</td></tr>
-                        <tr class="dia-impar"><td></td><td>03:00</td><td class="impedimento">Impedimento – Sem Demanda</td></tr>
-                        <tr class="dia-impar"><td></td><td>04:00</td><td class="impedimento">Impedimento – Sem Acesso às VMs da TIM</td></tr>
-
-                        <!-- 08/07 -->
-                        <tr class="dia-par"><td><strong>08/07</strong></td><td>07:00</td><td>Configuração de ambiente, instalação do Miracle e acesso aos sistemas TIM X / Siebel</td></tr>
-                        <tr class="dia-par"><td></td><td>01:00</td><td>Subida para Produção – PR dos projetos MESA DE DECISÃO e FRONT DE CONTESTAÇÃO</td></tr>
-                    </tbody>
-                </table>
-            </body>
-        </html>
-    </details>
-
-    <details>
-        <summary>🗓️ 08/07 – Configuração de ambiente, instalação do Miracle e acesso aos sistemas TIM X / Siebel</summary>
+    <div class="section">
+        <h2>🗓️ 22/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>22/07</td>
+                    <td>08:00</td>
+                    <td class="impedimento">🚫 Impedimento – Sem Acesso à VM da TIM</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🚫 Impedimento – Sem Acesso à VM da TIM</h3>
         <ul>
-            <li><strong>Tarefa:</strong> Preparo das máquinas e ambiente de acesso aos sistemas da TIM.</li>
+            <li><strong>Tarefa:</strong> Tentativas contínuas de conexão com o ambiente TIM.</li>
+            <li><strong>Descrição:</strong> Todo o dia comprometido pela indisponibilidade da máquina virtual. Esse impedimento é crítico pois trava completamente a evolução da POC.</li>
+            <li><strong>Impacto:</strong> Zero avanço técnico. Delay direto nas entregas da sprint.</li>
+            <li><strong>Tempo Registro:</strong> 8h</li>
+            <li><strong>Observação:</strong> Falta de contingência e SLA de TI prejudicando o cronograma.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🗓️ 21/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>21/07</td>
+                    <td>04:30</td>
+                    <td>[DEV] Programação do Request de Scroll das Faturas</td>
+                </tr>
+                <tr>
+                    <td>21/07</td>
+                    <td>03:30</td>
+                    <td class="impedimento">🚫 Impedimento – Sem Acesso à VM da TIM</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🔧 [DEV] Programação do Request de Scroll das Faturas</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Criação da lógica que simula o scroll/paginação do sistema TIM para carregar todas as faturas na tela.</li>
+            <li><strong>Desafio Técnico:</strong> Essa etapa exigiu inspeção minuciosa no <strong>Fiddler</strong>, entendimento de headers dinâmicos, tokens e identificação dos parâmetros de paginação.</li>
+            <li><strong>Complexidade:</strong> Alta – requer engenharia reversa da navegação assíncrona da interface do Siebel.</li>
+            <li><strong>Resultado:</strong> Request reproduzido com sucesso, abrindo caminho para <strong>captura de múltiplas faturas</strong> por cliente.</li>
+        </ul>
+        <h3>🚫 Impedimento – Sem Acesso à VM da TIM</h3>
+        <ul>
+            <li><strong>Tempo Registro:</strong> 3h30</li>
+            <li><strong>Comentário Estratégico:</strong> Problema reincidente e sem previsão clara de resolução, impactando moral da equipe e previsibilidade.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🗓️ 18/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>18/07</td>
+                    <td>08:00</td>
+                    <td>[DEV] Programação do Request de Informações das Faturas</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🔧 [DEV] Programação do Request de Informações das Faturas</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Com base nas análises do Fiddler e simulação de headers, foi criada a automação que extrai os dados essenciais de cada fatura visível.</li>
+            <li><strong>Variáveis envolvidas:</strong> Número da conta, valores cobrados, status da fatura, período de referência, vencimento.</li>
+            <li><strong>Resultado:</strong> Request estruturado e validado com mock de dados reais extraídos da rede.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🗓️ 17/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>17/07</td>
+                    <td>08:00</td>
+                    <td>[DEV] Conclusão do Request de Pesquisa de Acesso + Início do Request de Faturas</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🔧 Conclusão do Request de Pesquisa de Acesso</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Automação da consulta aos registros de acesso de clientes – etapa prévia às faturas.</li>
+            <li><strong>Valor de Negócio:</strong> Identificar clientes elegíveis para contestação, com base nos acessos recentes e tipos de serviço.</li>
+            <li><strong>Integração:</strong> As informações desta etapa alimentam os filtros do request seguinte (faturas).</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🗓️ 16/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>16/07</td>
+                    <td>08:00</td>
+                    <td>[DEV] Finalização da Tela Principal + Início da Pesquisa de Acesso</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🔧 Tela Principal – Request Final</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Conclusão dos 10 requests necessários para simular toda a sequência pós-login até o dashboard funcional.</li>
+            <li><strong>Complexidade:</strong> Alta – o sistema exige navegação em múltiplos iframes e autenticação contínua.</li>
+            <li><strong>Comentário Estratégico:</strong> Essa tela marca a <strong>fronteira de viabilidade</strong> – se o robô chega até aqui, ele pode navegar o sistema.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🗓️ 15/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>15/07</td>
+                    <td>08:00</td>
+                    <td>[DEV] Início da Implementação da Tela Principal</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🔧 Início da Tela Principal</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Mapeamento e reprodução dos requests da dashboard pós-login.</li>
+            <li><strong>Resumo:</strong> Foram analisadas todas as chamadas de rede via Fiddler, entendendo o comportamento do navegador, cookies e headers dinâmicos.</li>
+            <li><strong>Comentário Estratégico:</strong> O sistema da TIM, por ser legado, exige simulação fiel do ambiente para evitar erros de autenticação e travamentos.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🗓️ 14/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>14/07</td>
+                    <td>08:00</td>
+                    <td>[DEV] Finalização do Login (4 requests) + Início Tela Principal</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🔧 Finalização do Pipeline de Login (4 Requests)</h3>
+        <ul>
+            <li><strong>Etapas do Login:</strong>
+                <ol>
+                    <li>Inicialização do Siebel</li>
+                    <li>Autorização IAM</li>
+                    <li>ExecutaLogin</li>
+                    <li>Dashboard Init</li>
+                </ol>
+            </li>
+            <li><strong>Desafio Técnico:</strong> Entendimento de cookies voláteis, tokens com expiração e headers dinâmicos.</li>
+            <li><strong>Valor Estratégico:</strong> Garantia de que o robô simula <strong>exatamente o comportamento humano no browser</strong>, sem Selenium.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🗓️ 11/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>11/07</td>
+                    <td>01:00</td>
+                    <td class="impedimento">Impedimento – Sem Acesso ao Visual Studio</td>
+                </tr>
+                <tr>
+                    <td>11/07</td>
+                    <td>07:00</td>
+                    <td>[DEV] Início da implementação da POC de Login TIM via Requests</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🔧 [DEV] Criação de Repositorio e Início da implementação da POC de Login TIM via Requests</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Criação do projeto base no Visual Studio e início do código de login via HTTP request (RestSharp).</li>
+            <li><strong>Resumo técnico:</strong>
+                <ul>
+                    <li>Criação do repositório no Visual Studio e organização inicial do projeto C# Console App.</li>
+                    <li>Leitura do Fiddler para replicar a sequência de requests do login real.</li>
+                    <li>Primeira versão do código criada com sucesso, fazendo o acesso à página de login (RequestGetAuthorization).</li>
+                    <li>Análise dos headers e cookies retornados pelo browser.</li>
+                    <li>A etapa avançou até a tela de login efetivo.</li>
+                </ul>
+            </li>
             <li><strong>Tempo gasto:</strong> 7h</li>
-            <li>
-                <strong>Resumo:</strong>
+        </ul>
+        <h3>🚫 Impedimento – Sem Acesso ao Visual Studio</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Sem acesso ao Visual Studio no início do dia.</li>
+            <li><strong>Impacto:</strong> Atraso de 1h no início da codificação da POC.</li>
+            <li><strong>Tempo Registro:</strong> 1h</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🗓️ 10/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>10/07</td>
+                    <td>08:00</td>
+                    <td>[DOR] Preparação de Ambiente – Configuração do Fiddler e estudo do fluxo</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🧠 [DEV] Estudo aprofundado das requests – Login TIM e estrutura do Siebel</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Exploração técnica detalhada da arquitetura da aplicação Siebel/TIM X, focando nas etapas de login e redirecionamentos internos.</li>
+            <li><strong>Resumo:</strong>
                 <ul>
-                    <li>Início do dia com liberação de acesso às VMs.</li>
-                    <li>Necessidade de instalar o Miracle dentro da VM para permitir acesso completo.</li>
-                    <li>Letícia forneceu o link correto para instalação do Miracle.</li>
-                    <li>Danilo compartilhou os links diretos de acesso aos sistemas TIM X e Siebel (sem uso do Miracle).</li>
-                    <li>Realizada configuração e login nas máquinas com credenciais fornecidas.</li>
-                    <li>Acesso ao sistema Siebel validado com sucesso.</li>
-                    <li>O sistema TIM X ainda apresentou falhas de autenticação, pendente de validação final.</li>
+                    <li>Leitura aprofundada do arquivo <code>.saz</code> capturado via Fiddler.</li>
+                    <li>Análise comparativa entre o que o navegador executa e o que o código gerado até então estava processando.</li>
+                    <li>Estudo de como o Siebel lida com autenticação, headers dinâmicos, cookies e redirecionamentos internos.</li>
+                    <li>Ajuste de requisições <code>GET</code> que estavam omitindo headers obrigatórios como <code>sec-fetch-*</code>, <code>referer</code> e <code>user-agent</code>.</li>
+                    <li>Tentativas de simular o fluxo do navegador no RestSharp, detectando padrões como número exato de requests (4 até tela principal).</li>
                 </ul>
             </li>
-            <li>
-                <strong>Demanda vinculada:</strong>
+            <li><strong>Dificuldade enfrentada:</strong>
                 <ul>
-                    <li>Suporte geral à retomada de atividades nos sistemas TIM</li>
-                    <li>Solicitação de instalação e testes de ambiente interno</li>
+                    <li>A maior barreira foi <strong>entender o fluxo real das camadas internas do Siebel</strong>: cada tela gera múltiplas chamadas, e algumas precisam de <code>cookie forwarding</code>.</li>
+                    <li>O código gerado inicialmente <strong>não refletia com exatidão</strong> os headers dinâmicos extraídos pelo browser, o que causava falha (HTTP 403).</li>
+                </ul>
+            </li>
+            <li><strong>Resultado:</strong> Obtenção de um modelo confiável (Sistemas SiebelIntegration) de requests iniciais (pré-login e login) pronto para ser reproduzido em código C#.</li>
+            <li><strong>Tempo gasto:</strong> 8h</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🗓️ 09/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>09/07</td>
+                    <td>08:00</td>
+                    <td>[DOR] Estudo do Documento Técnico – Etapas de Fluxo de Entrada</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>📄 [ANÁLISE] Leitura técnica do PDF – FLUXO DE CONTESTAÇÃO - TIM 2.1</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Estudo completo do fluxo oficial de contestação da TIM, com base no documento PDF fornecido pela PO.</li>
+            <li><strong>Resumo:</strong>
+                <ul>
+                    <li>Análise das etapas descritas no fluxo real do operador.</li>
+                    <li>Identificação de pontos passíveis de automação (ex: análise de fatura, triagem de cobrança, disparo de contestação).</li>
+                    <li>Marcação dos pontos de decisão lógica que devem ser simulados na POC.</li>
+                    <li>Planejamento da arquitetura para mapear decisões em regras fixas no robô.</li>
+                    <li>Análise de viabilidade: o sistema depende de diversas etapas manuais e validações humanas, o que reforça a proposta da automação via script com regras pré-definidas.</li>
+                </ul>
+            </li>
+            <li><strong>Resultado:</strong> Documento técnico interno com mapeamento das etapas possíveis de automatizar via código C# + Requests.</li>
+            <li><strong>Tempo gasto:</strong> 8h</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🗓️ 08/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>08/07</td>
+                    <td>08:00</td>
+                    <td>Configuração inicial do ambiente da TIM e primeiros acessos</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🛠️ Configuração inicial do ambiente da TIM e primeiros acessos</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Preparação da máquina e instalação de ferramentas de acesso (Miracle e links diretos).</li>
+            <li><strong>Resumo:</strong>
+                <ul>
+                    <li>Acesso à máquina liberado após tratativas com time técnico.</li>
+                    <li>Instalação do aplicativo Miracle conforme link enviado por Letícia.</li>
+                    <li>Recebimento dos links diretos para o TIM X e Siebel (fornecidos por Danilo).</li>
+                    <li>Acesso funcional ao Siebel validado com login e senha fornecidos.</li>
+                    <li>Falhas de login no TIM X ainda persistem (possivelmente por configuração).</li>
+                </ul>
+            </li>
+            <li><strong>Tempo gasto:</strong> 8h</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🗓️ 07/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>07/07</td>
+                    <td>01:00</td>
+                    <td>[REUNIÃO] Alinhamento inicial da demanda – Contestação TIM (Letícia + Time)</td>
+                </tr>
+                <tr>
+                    <td>07/07</td>
+                    <td>03:00</td>
+                    <td class="impedimento">Impedimento – Sem Demanda</td>
+                </tr>
+                <tr>
+                    <td>07/07</td>
+                    <td>04:00</td>
+                    <td class="impedimento">Impedimento – Sem Acesso às VMs da TIM</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🧠 [REUNIÃO] Alinhamento inicial da demanda – Contestação TIM (Letícia + Time)</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Participação em reunião com Letícia e o time para compreender os pontos iniciais da nova demanda de contestação automática para a TIM.</li>
+            <li><strong>Resumo:</strong>
+                <ul>
+                    <li>Foram levantados os pontos-chave da contestação automática.</li>
+                    <li>Alinhamento da proposta inicial do robô e definições das <strong>duas POCs viáveis</strong> discutidas com base nas informações do cliente:
+                        <ul>
+                            <li><strong>POC 1:</strong> Análise e extração via planilha + upload manual via Portal TIM.</li>
+                            <li><strong>POC 2:</strong> Automação de leitura de PDF com regras fixas + envio automatizado via API (a depender da validação de viabilidade).</li>
+                        </ul>
+                    </li>
+                    <li>Discussão sobre as restrições técnicas de acesso ao ambiente da TIM e limitações iniciais.</li>
+                </ul>
+            </li>
+            <li><strong>Resultado:</strong> Criado plano inicial para execução das duas POCs. Aguardar acesso e permissões.</li>
+            <li><strong>Tempo gasto:</strong> 1h</li>
+        </ul>
+        <h3>🚫 Impedimento – Sem Demanda</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Ausência total de novas demandas úteis para atuação técnica ao longo da manhã.</li>
+            <li><strong>Tempo Registro:</strong> 3h</li>
+            <li><strong>Observação:</strong> Aguardando movimentação ou liberação de tarefas em backlog.</li>
+        </ul>
+        <h3>🚫 Impedimento – Sem Acesso às VMs da TIM</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Tentativa de acesso às máquinas virtuais para preparação das POCs da contestação TIM, sem sucesso.</li>
+            <li><strong>Descrição:</strong> Todas as tentativas resultaram em falha de autenticação ou erro de rede.</li>
+            <li><strong>Impacto:</strong> Impedimento direto na continuação da tarefa prática para as provas de conceito.</li>
+            <li><strong>Tempo Registro:</strong> 4h</li>
+            <li><strong>Observação:</strong> Acesso ainda em tratativa com time técnico responsável.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>📊 Resumo da Semana (30/06 - 04/07)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>30/06</td>
+                    <td>02:00</td>
+                    <td>CNU – Atualização do ChromeDriver – Acompanhamento Release</td>
+                </tr>
+                <tr>
+                    <td>30/06</td>
+                    <td>03:00</td>
+                    <td class="impedimento">Impedimento – Sem Demanda</td>
+                </tr>
+                <tr>
+                    <td>30/06</td>
+                    <td>01:00</td>
+                    <td class="impedimento">Impedimento – Sistema do Cliente IbiPlus (Necessidade de Login)</td>
+                </tr>
+                <tr>
+                    <td>30/06</td>
+                    <td>02:00</td>
+                    <td>Bradesco – [INCIDENTE NEG.] Mesa de Decisão SAC – Análise inicial do problema</td>
+                </tr>
+                <tr>
+                    <td>01/07</td>
+                    <td>08:00</td>
+                    <td>Bradesco – [INCIDENTE NEG.] MESA DE DECISÃO SAC – CAMPO TELEFÔNICO – lógica de bloqueio implementada</td>
+                </tr>
+                <tr>
+                    <td>02/07</td>
+                    <td>08:00</td>
+                    <td>Bradesco – [INCIDENTE NEG.] MESA DE DECISÃO SAC – CAMPO TELEFÔNICO – validação funcional e encaminhamento para homologação</td>
+                </tr>
+                <tr>
+                    <td>03/07</td>
+                    <td>04:00</td>
+                    <td>Bradesco – [INCIDENTE NEG.] MESA DE DECISÃO SAC – CAMPO TELEFÔNICO – publicação e início do release</td>
+                </tr>
+                <tr>
+                    <td>03/07</td>
+                    <td>04:00</td>
+                    <td class="impedimento">Impedimento – Sem Demanda</td>
+                </tr>
+                <tr>
+                    <td>04/07</td>
+                    <td>08:00</td>
+                    <td>Bradesco – [INCIDENTE] FRONT DE CONTESTAÇÃO – API E-MAIL</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>🗓️ 04/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>04/07</td>
+                    <td>08:00</td>
+                    <td>Bradesco – [INCIDENTE] FRONT DE CONTESTAÇÃO – API E-MAIL</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🔧 Bradesco – [INCIDENTE] FRONT DE CONTESTAÇÃO – API E-MAIL</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Correção do envio de e-mails no sistema <strong>bradescard.Contestacao.API</strong>, utilizando nova API para autenticação e disparo.</li>
+            <li><strong>Tempo gasto:</strong> 8h</li>
+            <li><strong>Resumo do dia (04/07):</strong>
+                <ul>
+                    <li>Recebida demanda para tratar falha no envio de e-mails ao submeter formulário no <strong>FRONT de Contestação</strong>.</li>
+                    <li>Analisado o fluxo da aplicação e validada a necessidade de troca do e-mail do remetente.</li>
+                    <li>Com orientação do Danilo, foi realizada alteração no código da API, adicionando o novo remetente e integrando com o sistema de autenticação por token.</li>
+                    <li>Como era o primeiro uso da <strong>API de e-mail</strong>, foi necessário ajustar permissões e credenciais, garantindo acesso ao token.</li>
+                    <li>Nos testes, foi necessário utilizar o e-mail do Danilo, pois o acesso com meu e-mail apresentou falha de navegador.</li>
+                    <li>Após validações e correções, o código foi enviado para <strong>homologação</strong>, ficando disponível para os <strong>testes dos clientes</strong>.</li>
+                    <li>Testes via Postman foram realizados com sucesso usando a URL da API de envio de e-mail e autenticação com senha de rede (<code>password</code>).</li>
+                </ul>
+            </li>
+            <li><strong>Demanda vinculada:</strong>
+                <ul>
+                    <li><strong>User Story 306780</strong> – [INCIDENTE] FRONT DE CONTESTAÇÃO – API E-MAIL</li>
+                    <li><strong>Epic 306779</strong> – [INCIDENTE] FRONT DE CONTESTAÇÃO – API E-MAIL</li>
                 </ul>
             </li>
         </ul>
-    </details>
+    </div>
 
-    <details>
-        <summary>🗓️ 07/07 – Contestação TIM: Reunião e impedimentos</summary>
+    <div class="section">
+        <h2>🗓️ 03/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>03/07</td>
+                    <td>04:00</td>
+                    <td>Bradesco – [INCIDENTE NEG.] MESA DE DECISÃO SAC – CAMPO TELEFÔNICO – publicação e início do release</td>
+                </tr>
+                <tr>
+                    <td>03/07</td>
+                    <td>04:00</td>
+                    <td class="impedimento">Impedimento – Sem Demanda</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🔧 Bradesco – [INCIDENTE NEG.] MESA DE DECISÃO SAC – CAMPO TELEFÔNICO – publicação e início do release</h3>
         <ul>
-            <li><strong>Tarefa: Reunião inicial com Letícia e time (1h)</strong> – Alinhamento sobre a demanda de contestação automática TIM. Foram definidas duas POCs para investigar viabilidade técnica e operacional.</li>
-            <li>
-                <strong>POCs definidas:</strong>
-                <ul>
-                    <ul>
-                        <li>POC 1: Planilha + Upload Manual via Portal TIM</li>
-                        <li>POC 2: Leitura de PDF + Envio por API (a depender da viabilidade)</li>
-                    </ul>
-                </ul>
-            </li>
-            <li>
-                <strong>Impedimentos:</strong>
-                <ul>
-                    <li><strong>Impedimento: Sem demanda (3h)</strong> – Nenhuma atividade disponível para atuação no período da manhã.</li>
-                    <li><strong>Impedimento: Sem acesso às VMs da TIM (4h)</strong> – Tentativas de acesso falharam por erro técnico, impedindo a preparação das POCs.</li>
-                </ul>
-            </li>
-            <li><strong>Total:</strong> 8h</li>
-        </ul>
-    </details>
-</details>
-
-<details>
-    <summary style="font-size: 1.2em; font-weight: bold; color: var(--cor-secundaria); margin-bottom: 10px;">
-        📊 Semana – 30/06 a 04/07
-    </summary>
-
-    <details open>
-        <summary style="font-size: 1.2em; font-weight: bold; color: var(--cor-secundaria); margin-bottom: 10px;">
-            📊 Resumo Semanal
-        </summary>
-        <!DOCTYPE html>
-        <html lang="pt-BR">
-        <head>
-            <meta charset="UTF-8">
-            <title>📘 Diário de Bordo – Squad Nexus · AeC</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-        </head>
-        <body>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Dia</th>
-                        <th>Tempo</th>
-                        <th>Tarefa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- 30/06 -->
-                    <tr class="dia-impar"><td><strong>30/06</strong></td><td>02:00</td><td>CNU – Atualização do ChromeDriver – Acompanhamento Release</td></tr>
-                    <tr class="dia-impar"><td></td><td>03:00</td><td class="impedimento">Impedimento – Sem Demanda</td></tr>
-                    <tr class="dia-impar"><td></td><td>01:00</td><td class="impedimento">Impedimento – Sistema do Cliente IbiPlus (Login)</td></tr>
-                    <tr class="dia-impar"><td></td><td>02:00</td><td>Bradesco – Mesa SAC – Análise inicial do problema</td></tr>
-
-                    <tr class="dia-par"><td><strong>01/07</strong></td><td>08:00</td><td>Bradesco – Mesa SAC – Validação do telefone (bloqueio com 11 dígitos)</td></tr>
-
-                    <tr class="dia-impar"><td><strong>02/07</strong></td><td>08:00</td><td>Bradesco – Mesa SAC – Encaminhamento para homologação</td></tr>
-
-                    <tr class="dia-par"><td><strong>03/07</strong></td><td>04:00</td><td>Bradesco – Publicação do release e envio à PO</td></tr>
-                    <tr class="dia-par"><td></td><td>04:00</td><td class="impedimento">Impedimento – Sem novas demandas atribuídas após entrega</td></tr>
-
-                    <tr class="dia-impar"><td><strong>04/07</strong></td><td>08:00</td><td>Bradesco – Correção API de E-mail no FRONT de contestação</td></tr>
-                </tbody>
-            </table>
-</details>
-<details>
-    <summary>🗓️ 04/07 – Correção de envio de e-mail via API</summary>
-    <ul>
-        <li><strong>Tarefa:</strong> Ajuste do sistema <code>bradescard.Contestacao.API</code> para uso da nova API de envio de e-mails, com autenticação por token.</li>
-        <li><strong>Tempo gasto:</strong> 8h</li>
-        <li>
-            <strong>Resumo:</strong>
-            <ul>
-                <li>Recebida demanda vinculada ao erro no FRONT de contestação.</li>
-                <li>Com apoio de Danilo, foram realizadas mudanças no código para integração da API externa de e-mails.</li>
-                <li>Adicionado novo parâmetro para apontar corretamente ao serviço de e-mails.</li>
-                <li>Como era o primeiro uso da API, foi necessário solicitar token e configurar autenticação do tipo <code>password</code>.</li>
-                <li>Nos testes, meu e-mail apresentou falha no navegador. Utilizei o e-mail do Danilo para validações.</li>
-                <li>Testes via Postman realizados com sucesso.</li>
-                <li>Alterações publicadas em homologação para testes com clientes.</li>
-            </ul>
-        </li>
-        <li>
-            <strong>Demanda vinculada:</strong>
-            <ul>
-                <li>User Story <strong>#306780</strong> – FRONT DE CONTESTAÇÃO – API E-MAIL</li>
-                <li>Epic <strong>#306779</strong> – FRONT DE CONTESTAÇÃO – API E-MAIL</li>
-            </ul>
-        </li>
-    </ul>
-</details>
-
-
-<details>
-    <summary>🗓️ 03/07 – Publicação e início do release + Impedimento</summary>
-    <ul>
-        <li><strong>Tempo total:</strong> 8h (4h entrega + 4h impedimento)</li>
-    </ul>
-
-    <details>
-        <summary>📦 Publicação e início do release</summary>
-        <ul>
-            <li><strong>Tarefa:</strong> Finalização dos testes e correção da ausência de versão para publicação em homologação.</li>
+            <li><strong>Tarefa:</strong> Finalização dos testes e correção da ausência de versão para publicação em homologação. Liberação da versão aprovada e início do release.</li>
             <li><strong>Tempo gasto:</strong> 4h</li>
-            <li>
-                <strong>Resumo:</strong>
+            <li><strong>Resumo do dia (03/07):</strong>
                 <ul>
                     <li>Corrigida a pendência da versão ausente nos arquivos.</li>
                     <li>Realizados testes com as versões existentes até homologação.</li>
-                    <li>Publicação realizada com sucesso.</li>
-                    <li>Início do processo de release, sem falhas.</li>
-                    <li>Status comunicado à PO para validação dos clientes.</li>
+                    <li>Publicação realizada e aceita com sucesso.</li>
+                    <li>Início do processo de release, que passou completamente sem falhas.</li>
+                    <li>Status comunicado para a PO, que irá encaminhar para validação dos clientes.</li>
                 </ul>
             </li>
-            <li><strong>Próximos passos:</strong> Aguardar retorno da PO e validação final dos clientes.</li>
+            <li><strong>Próximos passos:</strong> Aguardar retorno da PO e dos clientes sobre a validação da entrega.</li>
         </ul>
-    </details>
-
-    <details>
-        <summary>🚫 Impedimento – Sem Demanda</summary>
+        <h3>🚫 Impedimento Sem Demanda</h3>
         <ul>
-            <li><strong>Tarefa:</strong> Sem novas demandas atribuídas após a entrega, entre 13h e 17h.</li>
-            <li><strong>Tempo registrado:</strong> 4h</li>
-            <li><strong>Observação:</strong> Disponibilidade registrada e validada com o time. Aguardando novas atribuições.</li>
+            <li><strong>Tarefa:</strong> Sem novas demandas após finalização da entrega, entre 13h e 17h.</li>
+            <li><strong>Tempo Registro:</strong> 4h</li>
+            <li><strong>Observação:</strong> Disponibilidade registrada e validada com o time. Aguardando nova atribuição.</li>
         </ul>
-    </details>
+    </div>
 
-</details>
+    <div class="section">
+        <h2>🗓️ 02/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>02/07</td>
+                    <td>08:00</td>
+                    <td>Bradesco – [INCIDENTE NEG.] MESA DE DECISÃO SAC – CAMPO TELEFÔNICO – validação funcional e encaminhamento para homologação</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🔍 Bradesco – [INCIDENTE NEG.] MESA DE DECISÃO SAC – CAMPO TELEFÔNICO – validação funcional e encaminhamento para homologação</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Testes gerais e validação da funcionalidade com a PO, além do processo de publicação para homologação.</li>
+            <li><strong>Tempo gasto:</strong> 8h</li>
+            <li><strong>Resumo do dia (02/07):</strong>
+                <ul>
+                    <li>Realizados testes locais para verificar o impacto da nova lógica implementada.</li>
+                    <li>Foi apresentado um vídeo demonstrativo à PO Letícia, que <strong>aprovou a validação funcional</strong>.</li>
+                    <li>Iniciado o processo de criação das branches para publicação da versão em ambiente de homologação.</li>
+                    <li>Durante a tentativa de subir as branches na máquina do cliente, foi identificado um problema de acesso.</li>
+                    <li>O analista Danilo interveio e <strong>liberou o acesso necessário</strong> para continuidade.</li>
+                </ul>
+            </li>
+            <li><strong>Próximos passos:</strong>
+                <ul>
+                    <li>Testar a versão publicada no ambiente de homologação.</li>
+                    <li>A PO Letícia irá validar diretamente com os clientes o comportamento final do sistema.</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 
+    <div class="section">
+        <h2>🗓️ 01/07</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>01/07</td>
+                    <td>08:00</td>
+                    <td>Bradesco – [INCIDENTE NEG.] MESA DE DECISÃO SAC – CAMPO TELEFÔNICO – lógica de bloqueio implementada</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🔧 Bradesco – [INCIDENTE NEG.] MESA DE DECISÃO SAC – CAMPO TELEFÔNICO – lógica de bloqueio implementada</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Bloquear a continuação do formulário do Mesa de Decisão SAC caso o número de telefone informado não contenha exatamente 11 caracteres válidos (incluindo DDD).</li>
+            <li><strong>Tempo gasto:</strong> 8h</li>
+            <li><strong>Resumo anterior (30/06):</strong>
+                <ul>
+                    <li>Projeto preparado para alcançar a tela da funcionalidade.</li>
+                    <li>Danilo realizou acesso técnico ao banco utilizado pelo sistema.</li>
+                    <li>Liberação de senha do IbiPlus permitiu o acesso completo à tela com campos dinâmicos.</li>
+                </ul>
+            </li>
+            <li><strong>Status (01/07):</strong>
+                <ul>
+                    <li>Analisado o componente <code>TextBoxDinamico</code>, com máscara <code>(00)00000-0000</code>.</li>
+                    <li>Identificado que a validação anterior apenas marcava como obrigatório, sem verificar quantidade de dígitos.</li>
+                    <li>Implementado ajuste no método <code>ValorValido(MaskedTextBox item)</code>, com:
+                        <ul>
+                            <li>Remoção de todos os caracteres não numéricos.</li>
+                            <li>Verificação de exatamente 11 dígitos.</li>
+                            <li>Exibição da mensagem: <em>"Telefone (XX)XXXXX-XXXX deve conter exatamente 11 números."</em></li>
+                            <li>Bloqueio da continuação do formulário em caso de erro.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><strong>Próximos passos:</strong> Início dos testes com a equipe para validar a funcionalidade e verificar necessidade de ajustes finais.</li>
+        </ul>
+    </div>
 
-<details>
-    <summary>🗓️ 02/07 – Validação funcional e encaminhamento</summary>
-    <ul>
-        <li><strong>Tarefa:</strong> Testes gerais e validação da funcionalidade com a PO, além do processo de publicação para homologação.</li>
-        <li><strong>Tempo gasto:</strong> 8h</li>
-        <li>
-            <strong>Resumo:</strong>
-            <ul>
-                <li>Realizados testes locais para verificar o impacto da nova lógica implementada.</li>
-                <li>Apresentado vídeo à PO Letícia, que aprovou a funcionalidade.</li>
-                <li>Branches criadas para ambiente de homologação.</li>
-                <li>Problema de acesso resolvido com apoio do analista Danilo.</li>
-            </ul>
-        </li>
-        <li><strong>Próximos passos:</strong> Testes no ambiente de homologação com a PO e clientes.</li>
-    </ul>
-</details>
-
-<details>
-    <summary>🗓️ 01/07 – Implementação da lógica de bloqueio</summary>
-    <ul>
-        <li><strong>Tarefa:</strong> Bloqueio da continuação do formulário se telefone inválido.</li>
-        <li><strong>Tempo gasto:</strong> 8h</li>
-        <li>
-            <strong>Status:</strong>
-            <ul>
-                <li>Análise do componente TextBoxDinamico com máscara.</li>
-                <li>Adicionada validação de 11 dígitos e mensagem de erro.</li>
-                <li>Bloqueio funcional do botão de envio.</li>
-            </ul>
-        </li>
-    </ul>
-</details>
-
-<details>
-    <summary>🗓️ 30/06 – Análise inicial e impedimentos</summary>
-    <ul>
-        <li><strong>ChromeDriver:</strong> Acompanhamento da atualização e liberação.</li>
-        <li><strong>Bradesco:</strong> Ajustes para alcançar tela do formulário.</li>
-        <li>
-            <strong>Impedimentos:</strong>
-            <ul>
-                <li>Sem demanda (3h)</li>
-                <li>Falta de login IbiPlus (1h)</li>
-            </ul>
-        </li>
-        <li><strong>Total:</strong> 8h</li>
-    </ul>
-</details>
-    </ul>
-</details>
+    <div class="section">
+        <h2>🗓️ 30/06</h2>
+        <h3>Resumo de Horas do Dia</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>Tarefa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>30/06</td>
+                    <td>02:00</td>
+                    <td>CNU – Atualização do ChromeDriver – Acompanhamento Release</td>
+                </tr>
+                <tr>
+                    <td>30/06</td>
+                    <td>03:00</td>
+                    <td class="impedimento">Impedimento – Sem Demanda</td>
+                </tr>
+                <tr>
+                    <td>30/06</td>
+                    <td>01:00</td>
+                    <td class="impedimento">Impedimento – Sistema do Cliente IbiPlus (Necessidade de Login)</td>
+                </tr>
+                <tr>
+                    <td>30/06</td>
+                    <td>02:00</td>
+                    <td>Bradesco – [INCIDENTE NEG.] Mesa de Decisão SAC – Análise inicial do problema</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>🔧 CNU – Atualização do ChromeDriver</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Acompanhamento da subida da nova versão, após os testes, liberação para produção via Pull Request com acompanhamento técnico.</li>
+            <li><strong>Tempo gasto:</strong> 2h</li>
+            <li><strong>Resumo anterior:</strong> Atualização do ChromeDriver e testes no robô Blip realizados em 27/06.</li>
+            <li><strong>Status:</strong> Finalizado</li>
+        </ul>
+        <h3>🔧 Bradesco – PR de Produção IbiPlus (Calculadora)</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Criação e aprovação do Pull Request para produção, após confirmação de homologação.</li>
+            <li><strong>Resumo anterior:</strong> O PR já estava pronto desde quarta-feira às 10h, aguardando a aprovação da homologação por parte da Ana.</li>
+            <li><strong>Execução:</strong>
+                <ul>
+                    <li>Ana solicitou formalmente a PR pela manhã, porém já tinha passado desde quarta.</li>
+                    <li>No final do dia, após às 17:30h, o PR foi aprovado e iniciou-se a release.</li>
+                    <li>Durante o processo, a esteira apresentou erro.</li>
+                </ul>
+            </li>
+            <li><strong>Status:</strong> Em análise – erro técnico na esteira identificado.</li>
+            <li><strong>Impacto:</strong> A liberação para produção foi iniciada, mas está pendente de correção técnica. A falha será investigada para permitir a conclusão da entrega.</li>
+        </ul>
+        <h3>🔧 Bradesco – [INCIDENTE NEG.] Mesa de Decisão SAC – Validação do Campo Telefônico</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Configuração inicial do projeto para verificar o incidente e relacionado ao campo de telefone no formulário da Mesa de Decisão do SAC.</li>
+            <li><strong>Descrição:</strong> O formulário estava permitindo avanço mesmo com números inválidos. A tarefa envolve bloquear o prosseguimento do formulário caso o telefone informado não tenha exatamente 11 dígitos válidos.</li>
+            <li><strong>Ações realizadas:</strong>
+                <ul>
+                    <li>Ajustes no projeto para garantir que o fluxo chegue até o formulário da Mesa.</li>
+                    <li>Solicitação e uso de nova senha para acesso ao ambiente IbiPlus.</li>
+                    <li>Acesso técnico validado com sucesso até o formulário final.</li>
+                </ul>
+            </li>
+            <li><strong>Próximo passo:</strong> Início da lógica de bloqueio e validação do campo a partir de amanhã.</li>
+            <li><strong>Tempo gasto hoje:</strong> 2h</li>
+            <li><strong>Status:</strong> 🔄 Em andamento – fase de configuração inicial concluída.</li>
+        </ul>
+        <h3>🚫 Impedimento Sem Demanda</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Sem demanda entre 11h e 15h. Aguardei um pouco para abrir pois estava achando que arrumaria a tarefa rápido, até 12:30 mais ou menos.</li>
+            <li><strong>Tempo Registro:</strong> 3h</li>
+            <li><strong>Observação:</strong> Disponibilidade registrada e validada com o time.</li>
+        </ul>
+        <h3>🚫 Impedimento Técnico ou Operacional</h3>
+        <ul>
+            <li><strong>Tarefa:</strong> Sem login e senha IbiPlus.</li>
+            <li><strong>Tempo Registro:</strong> 1h</li>
+            <li><strong>Observação:</strong> </li>
+        </ul>
+    </div>
 </body>
 </html>
