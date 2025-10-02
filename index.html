@@ -68,7 +68,176 @@
             </nav>
         </div>
     </header>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
 
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><main class="container">
+    <section id="resumo">
+        <h2 class="text-xl font-bold mt-8 mb-4">📊 Resumo do Mês – Setembro 2025</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Tempo</th>
+                    <th>ID</th>
+                    <th>Tarefa/Impedimento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 01/09 -->
+                <tr style="background-color: #ffffff;"><td rowspan="3">01/09/2025 + 2HE</td><td>00:30:00</td><td>326735</td><td>🔧 Tarefa: [01/09/25] - daily</td></tr>
+                <tr style="background-color: #ffffff;"><td>04:30:00</td><td>326734</td><td>🔧 Tarefa: [01/09/25] - Criacao dos requests conta certa</td></tr>
+                <tr style="background-color: #ffffff;"><td>05:00:00</td><td>326730</td><td>🔧 Tarefa: [01/09/25] - Criação do pipe histórico de contestação</td></tr>
+
+                <!-- 02/09 -->
+                <tr style="background-color: #f9f9f9;"><td>02/09/2025 + 2HE</td><td>08:00:00</td><td>326642</td><td class="impedimento">🚫 Impedimento: Sem acesso a VM da Tim</td></tr>
+
+                <!-- 03/09 -->
+                <tr style="background-color: #ffffff;"><td>03/09/2025 + 2HE</td><td>08:00:00</td><td>327088</td><td class="impedimento">🚫 Impedimento: Sem acesso ao git devido o proxy</td></tr>
+
+                <!-- 04/09 -->
+                <tr style="background-color: #f9f9f9;"><td rowspan="3">04/09/2025</td><td>02:00:00</td><td>327995</td><td>🔧 Tarefa: [04/09/25] - Siebel Contestacao Historico</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>02:00:00</td><td>327992</td><td>🔧 Tarefa: [04/09/25] - Criação de siebelUtil de Contestacao e Entidades</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>04:00:00</td><td>327462</td><td class="impedimento">🚫 Impedimento: Sem acesso ao git devido o proxy</td></tr>
+
+                <!-- 05/09 -->
+                <tr style="background-color: #ffffff;"><td rowspan="3">05/09/2025 + 2HE</td><td>00:30:00</td><td>328781</td><td>🔧 Tarefa: [05/09/25] - daily</td></tr>
+                <tr style="background-color: #ffffff;"><td>08:00:00</td><td>328780</td><td>🔧 Tarefa: [05/09/25] - Contestacao escolha de ressarcimento e salvar ressarcimento</td></tr>
+                <tr style="background-color: #ffffff;"><td>01:30:00</td><td>328779</td><td>🔧 Tarefa: [05/09/25] - Criação de siebelUtil de Contestacao e Entidades</td></tr>
+
+                <!-- 08/09 -->
+                <tr style="background-color: #f9f9f9;"><td rowspan="3">08/09/2025 + 2HE</td><td>07:30:00</td><td>328784</td><td>🔧 Tarefa: [08/09/25] - Criacao dos requests</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>02:00:00</td><td>328783</td><td>🔧 Tarefa: [08/09/25] - salvar ressarcimento finalizado e inicio do finalizar contestação</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>00:30:00</td><td>328782</td><td>🔧 Tarefa: [08/09/25] - daily</td></tr>
+
+                <!-- 09/09 -->
+                <tr style="background-color: #ffffff;"><td rowspan="6">09/09/2025 + 2HE</td><td>01:00:00</td><td>329278</td><td>🔧 Tarefa: [09/09/25] - Segunda rodada Reunião com cliente para criação do logs</td></tr>
+                <tr style="background-color: #ffffff;"><td>01:00:00</td><td>329277</td><td>🔧 Tarefa: [09/09/25] - Reunião tecnica para criação do logs</td></tr>
+                <tr style="background-color: #ffffff;"><td>03:00:00</td><td>329274</td><td>🔧 Tarefa: [09/09/25] - request de criação de contestação finish contestação</td></tr>
+                <tr style="background-color: #ffffff;"><td>03:00:00</td><td>329273</td><td>🔧 Tarefa: [09/09/25] - Siebel Contestacao Historico</td></tr>
+                <tr style="background-color: #ffffff;"><td>01:00:00</td><td>329272</td><td>🔧 Tarefa: [09/09/25] - Criação de siebelUtil de Contestacao e Entidades</td></tr>
+                <tr style="background-color: #ffffff;"><td>01:00:00</td><td>329271</td><td>🔧 Tarefa: [09/09/25] - daily AeC e Pitang</td></tr>
+
+                <!-- 10/09 -->
+                <tr style="background-color: #f9f9f9;"><td rowspan="2">10/09/2025 + 2HE</td><td>00:30:00</td><td>329723</td><td>🔧 Tarefa: [10/09/25] - daily</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>09:30:00</td><td>329722</td><td>🔧 Tarefa: [10/09/25] - Criacao das entidades e DAO dos logs no Gateway.TIM</td></tr>
+
+                <!-- 11/09 -->
+                <tr style="background-color: #ffffff;"><td rowspan="2">11/09/2025 + 2HE</td><td>01:00:00</td><td>330105</td><td>🔧 Tarefa: [11/09/25] - dailys</td></tr>
+                <tr style="background-color: #ffffff;"><td>09:00:00</td><td>330104</td><td>🔧 Tarefa: [11/09/25] - Criacao das Banco de dados de log e Controller</td></tr>
+
+                <!-- 12/09 -->
+                <tr style="background-color: #f9f9f9;"><td rowspan="2">12/09/2025 + 2HE</td><td>00:30:00</td><td>330626</td><td>🔧 Tarefa: [12/09/25] - daily</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>09:30:00</td><td>330625</td><td>🔧 Tarefa: [12/09/25] - Criacao das Banco de dados de log e Controller</td></tr>
+
+                <!-- 15/09 -->
+                <tr style="background-color: #ffffff;"><td rowspan="2">15/09/2025 + 2HE</td><td>00:30:00</td><td>331144</td><td>🔧 Tarefa: [15/09/25] - daily</td></tr>
+                <tr style="background-color: #ffffff;"><td>09:30:00</td><td>331143</td><td>🔧 Tarefa: [15/09/25] - Criacao das Banco de dados de log e Controller</td></tr>
+
+                <!-- 16/09 -->
+                <tr style="background-color: #f9f9f9;"><td rowspan="2">16/09/2025 + 2HE</td><td>00:30:00</td><td>331571</td><td>🔧 Tarefa: [16/09/25] - Daily</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>09:30:00</td><td>331569</td><td>🔧 Tarefa: [16/09/25] - Criacao e configuracao das coisas de Log e Kibana</td></tr>
+
+                <!-- 17/09 -->
+                <tr style="background-color: #ffffff;"><td rowspan="3">17/09/2025 + 2HE</td><td>01:00:00</td><td>332084</td><td>🔧 Tarefa: [17/09/25] - Daily AeC e Pitang</td></tr>
+                <tr style="background-color: #ffffff;"><td>02:00:00</td><td>332083</td><td>🔧 Tarefa: [17/09/25] - kibana</td></tr>
+                <tr style="background-color: #ffffff;"><td>07:00:00</td><td>332082</td><td>🔧 Tarefa: [17/09/25] - Logs do Siebel</td></tr>
+
+                <!-- 18/09 -->
+                <tr style="background-color: #f9f9f9;"><td rowspan="3">18/09/2025 + 2HE</td><td>01:00:00</td><td>332497</td><td>🔧 Tarefa: [18/09/25] - Daily AeC e Pitang</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>04:00:00</td><td>332496</td><td>🔧 Tarefa: [18/09/25] - Request de salvar</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>05:00:00</td><td>332495</td><td>🔧 Tarefa: [18/09/25] - GATEWAY TIM API</td></tr>
+
+                <!-- 19/09 -->
+                <tr style="background-color: #ffffff;"><td rowspan="2">19/09/2025</td><td>00:30:00</td><td>333738</td><td>🔧 Tarefa: [19/09/25] - Daily</td></tr>
+                <tr style="background-color: #ffffff;"><td>07:30:00</td><td>333736</td><td>🔧 Tarefa: [19/09/25] - request contestação</td></tr>
+
+                <!-- 20/09 -->
+                <tr style="background-color: #f9f9f9;"><td>20/09/2025</td><td>--</td><td>--</td><td><em>Sábado</em></td></tr>
+
+                <!-- 21/09 -->
+                <tr style="background-color: #ffffff;"><td>21/09/2025</td><td>--</td><td>--</td><td><em>Domingo</em></td></tr>
+
+                <!-- 22/09 -->
+                <tr style="background-color: #f9f9f9;"><td rowspan="2">22/09/2025</td><td>00:30:00</td><td>333739</td><td>🔧 Tarefa: [22/09/25] - Daily</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>07:30:00</td><td>333743</td><td>🔧 Tarefa: [22/09/25] - Logs Gateway Banco de dados e Kibana</td></tr>
+
+                <!-- 23/09 -->
+                <tr style="background-color: #ffffff;"><td rowspan="5">23/09/2025</td><td>00:30:00</td><td>333986</td><td>🔧 Tarefa: [23/09/25] - Daily</td></tr>
+                <tr style="background-color: #ffffff;"><td>03:30:00</td><td>333987</td><td>🔧 Tarefa: [23/09/25] - Criação Entidades</td></tr>
+                <tr style="background-color: #ffffff;"><td>02:00:00</td><td>333988</td><td>🔧 Tarefa: [23/09/25] - GATEWAY TIM API</td></tr>
+                <tr style="background-color: #ffffff;"><td>01:00:00</td><td>333992</td><td>🔧 Tarefa: [23/09/25] - integrações</td></tr>
+                <tr style="background-color: #ffffff;"><td>01:00:00</td><td>334000</td><td>🔧 Tarefa: [23/09/25] - integracoes</td></tr>
+
+                <!-- 24/09 -->
+                <tr style="background-color: #f9f9f9;"><td rowspan="4">24/09/2025</td><td>00:30:00</td><td>334444</td><td>🔧 Tarefa: daily</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>04:00:00</td><td>334441</td><td>🔧 Tarefa: [24/09/25] - integracoes</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>01:30:00</td><td>334442</td><td>🔧 Tarefa: [24/09/25] - Integrações</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>02:00:00</td><td>334443</td><td>🔧 Tarefa: [24/09/25] - Integracao</td></tr>
+
+                <!-- 25/09 -->
+                <tr style="background-color: #ffffff;"><td rowspan="2">25/09/2025</td><td>00:30:00</td><td>335573</td><td>🔧 Tarefa: Daily 25/09</td></tr>
+                <tr style="background-color: #ffffff;"><td>07:30:00</td><td>335572</td><td>🔧 Tarefa: [25/09/25] - alterações no banco de dados e Controller, DAO</td></tr>
+
+                <!-- 26/09 -->
+                <tr style="background-color: #f9f9f9;"><td>26/09/2025</td><td>08:00:00</td><td>335664</td><td>🔧 Tarefa: Atestado 26/09</td></tr>
+
+                <!-- 27/09 -->
+                <tr style="background-color: #ffffff;"><td>27/09/2025</td><td>--</td><td>--</td><td><em>Sábado</em></td></tr>
+
+                <!-- 28/09 -->
+                <tr style="background-color: #f9f9f9;"><td>28/09/2025</td><td>--</td><td>--</td><td><em>Domingo</em></td></tr>
+
+                <!-- 29/09 -->
+                <tr style="background-color: #ffffff;"><td rowspan="3">29/09/2025</td><td>00:30:00</td><td>335921</td><td>🔧 Tarefa: Daily 29/09/2025 - Copy</td></tr>
+                <tr style="background-color: #ffffff;"><td>04:30:00</td><td>335917</td><td>🔧 Tarefa: analise do projeto</td></tr>
+                <tr style="background-color: #ffffff;"><td>03:00:00</td><td>335915</td><td class="impedimento">🚫 Impedimento: Sem demanda</td></tr>
+
+                <!-- 30/09 -->
+                <tr style="background-color: #f9f9f9;"><td rowspan="4">30/09/2025</td><td>01:00:00</td><td>336187</td><td>🔧 Tarefa: Daily AEC e Pitang 30/09/2025</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>03:00:00</td><td>336385</td><td>🔧 Tarefa: Tentativa de reprodcução do erro</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>03:00:00</td><td>336384</td><td class="impedimento">🚫 Impedimento: Problema de acesso aos Projetos</td></tr>
+                <tr style="background-color: #f9f9f9;"><td>01:00:00</td><td>336386</td><td class="impedimento">🚫 Impedimento: Solicitação de mais detalhes do ocorrido como video</td></tr>
+            </tbody>
+        </table>
+    </section>
+</main>
     <main class="container">
         <section id="resumo">
             <h2 class="text-xl font-bold mt-8 mb-4">📊 Resumo do Mês – Agosto 2025</h2>
