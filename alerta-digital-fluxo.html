@@ -538,8 +538,8 @@
         <text class="node-label node-label-sm" x="420" y="167">ou Bypass de 2 dias?</text>
       </g>
       <!-- R1 -> Descarte (esquerda) -->
-      <path d="M280,155 L184,155" fill="none" stroke="rgba(204,0,0,0.6)" stroke-width="1.5" marker-end="url(#arr2-red)"/>
-      <text x="198" y="148" class="edge-label" fill="rgba(255,80,80,0.9)">Sim → Descarte</text>
+      <path d="M280,155 L222,155" fill="none" stroke="rgba(204,0,0,0.6)" stroke-width="1.5" marker-end="url(#arr2-red)"/>
+      <text x="223" y="148" class="edge-label" fill="rgba(255,80,80,0.9)">Sim → Descarte</text>
 
       <!-- REGRA 2 -->
       <g data-tip="Verifica se a configuração da fila tem o flag ExigeHumano ativo. Se sim, o caso vai diretamente para analista.">
@@ -601,14 +601,14 @@
       </g>
 
       <!-- REGRA 5 -->
-      <g data-tip="Mesa de Decisão: verifica se o cadastro ou a alteração cadastral tem menos de 2 meses. Se o telefone não for validado, vai para humano.">
+      <g data-tip="Mesa de Decisão: verifica se por CPF se o cadastro ou a alteração cadastral tem menos de 2 meses. Se o telefone não for validado, vai para humano.">
         <polygon points="420,670 560,715 420,760 280,715" fill="url(#grad-check)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
         <text class="node-label-decision" x="420" y="709">Mesa de Decisão</text>
         <text class="node-label node-label-sm" x="420" y="727">telefone válido? (&lt;2 meses)</text>
       </g>
       <!-- R5 -> Humano -->
       <path d="M560,715 L650,715" fill="none" stroke="rgba(194,80,0,0.7)" stroke-width="1.5" marker-end="url(#arr2-orange)"/>
-      <text x="574" y="704" class="edge-label" fill="rgba(240,120,40,0.9)">Falhou</text>
+      <text x="538" y="704" class="edge-label" fill="rgba(240,120,40,0.9)">Telefone Não Localizado</text>
 
       <!-- REGRA 6 -->
       <g data-tip="Verifica no Redis (lista negativa) se o telefone está bloqueado. O Redis é alimentado por outro robô da esteira.">
@@ -664,11 +664,11 @@
 
       <!-- DESCARTE BOX (coluna esquerda) -->
       <g data-tip="Caso descartado: block code não passível, cartão bloqueado ou bypass ativo. Salva descarte no Case Manager.">
-        <rect x="-20" y="110" width="200" height="100" rx="8" fill="url(#grad-descarte2)" stroke="rgba(204,0,0,0.5)" stroke-width="1.5"/>
-        <text class="node-label" x="80" y="145" font-size="14">🗑</text>
-        <text class="node-label" x="80" y="163" font-size="12" font-weight="700">Descarte</text>
-        <text class="node-label node-label-sm" x="80" y="181">Salva no Case Manager</text>
-        <text class="node-label node-label-sm" x="80" y="197">→ próximo caso</text>
+        <rect x="20" y="105" width="200" height="100" rx="8" fill="url(#grad-descarte2)" stroke="rgba(204,0,0,0.5)" stroke-width="1.5"/>
+        <text class="node-label" x="120" y="135" font-size="14">🗑</text>
+        <text class="node-label" x="120" y="153" font-size="12" font-weight="700">Descarte</text>
+        <text class="node-label node-label-sm" x="120" y="171">Salva no Case Manager</text>
+        <text class="node-label node-label-sm" x="120" y="187">→ próximo caso</text>
       </g>
 
       <!-- Humano → RabbitMQ -->
