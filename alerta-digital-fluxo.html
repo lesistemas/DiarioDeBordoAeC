@@ -477,7 +477,7 @@
       <div class="legend-item"><div class="legend-dot" style="background:#1A6B3A"></div>Finalização Automática</div>
     </div>
 
-    <svg viewBox="0 0 900 1740" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 900 1760" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
           <path d="M0,0 L0,6 L8,3 z" fill="rgba(255,255,255,0.35)"/>
@@ -534,12 +534,12 @@
       <!-- REGRA 1 -->
       <g data-tip="Compara o BlockCode com a lista de não passíveis. Também verifica se o cartão está bloqueado ou se o bypass de 2 dias está ativo.">
         <polygon points="420,110 560,155 420,200 280,155" fill="url(#grad-check)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-        <text class="node-label-decision" x="420" y="148">Não passível · Bloqueio</text>
+        <text class="node-label-decision" x="420" y="148">Não passível · Cartão Bloqueado</text>
         <text class="node-label node-label-sm" x="420" y="167">ou Bypass de 2 dias?</text>
       </g>
-      <!-- R1 -> Descarte -->
-      <path d="M560,155 L655,155" fill="none" stroke="rgba(204,0,0,0.6)" stroke-width="1.5" marker-end="url(#arr2-red)"/>
-      <text x="640" y="148" class="edge-label" fill="rgba(255,80,80,0.9)">Sim → Descarte</text>
+      <!-- R1 -> Descarte (esquerda) -->
+      <path d="M280,155 L184,155" fill="none" stroke="rgba(204,0,0,0.6)" stroke-width="1.5" marker-end="url(#arr2-red)"/>
+      <text x="198" y="148" class="edge-label" fill="rgba(255,80,80,0.9)">Sim → Descarte</text>
 
       <!-- REGRA 2 -->
       <g data-tip="Verifica se a configuração da fila tem o flag ExigeHumano ativo. Se sim, o caso vai diretamente para analista.">
@@ -567,9 +567,38 @@
         <text class="node-label-decision" x="420" y="569">Cliente possui</text>
         <text class="node-label node-label-sm" x="420" y="587">telefone válido?</text>
       </g>
-      <!-- R4 -> Humano -->
-      <path d="M560,575 L650,575" fill="none" stroke="rgba(194,80,0,0.7)" stroke-width="1.5" marker-end="url(#arr2-orange)"/>
-      <text x="574" y="565" class="edge-label" fill="rgba(240,120,40,0.9)">Não</text>
+
+      <!-- R4 Sim -> R5 (continua fluxo normal) -->
+      <line x1="420" y1="620" x2="420" y2="670" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr2)"/>
+      <text x="430" y="652" class="edge-label" fill="rgba(100,200,100,0.7)">Sim</text>
+
+      <!-- R4 Não -> novo IF: Fila exige Salvar Cartão? -->
+      <path d="M280,575 L160,575 L160,595" fill="none" stroke="rgba(194,80,0,0.7)" stroke-width="1.5" marker-end="url(#arr2-orange)"/>
+      <text x="165" y="568" class="edge-label" fill="rgba(240,120,40,0.9)">Não</text>
+
+      <!-- NOVO IF: Fila exige Salvar Cartão? (ex: Fila Teto) -->
+      <g data-tip="Verifica se a configuração da fila exige que o cartão seja salvo no Case Manager por não ter telefone válido (ex: Fila Teto). Controla o comportamento de encerramento do caso sem telefone válido.">
+        <polygon points="160,595 280,640 160,685 40,640" fill="url(#grad-check)" stroke="rgba(255,140,0,0.35)" stroke-width="1.5"/>
+        <text class="node-label-decision" x="160" y="634">Fila exige</text>
+        <text class="node-label node-label-sm" x="160" y="652">Salvar Cartão? (ex: Teto)</text>
+      </g>
+
+      <!-- Novo IF Sim -> Humano (encaminha igual ao fluxo anterior) -->
+      <path d="M280,640 L650,640" fill="none" stroke="rgba(194,80,0,0.7)" stroke-width="1.5" marker-end="url(#arr2-orange)"/>
+      <text x="292" y="630" class="edge-label" fill="rgba(240,120,40,0.9)">Sim → Humano</text>
+
+      <!-- Novo IF Não -> Sem Telefone box (estilo descarte) -->
+      <line x1="160" y1="685" x2="160" y2="730" stroke="rgba(204,0,0,0.7)" stroke-width="1.5" marker-end="url(#arr2-red)"/>
+      <text x="168" y="712" class="edge-label" fill="rgba(255,80,80,0.9)">Não</text>
+
+      <!-- SEM TELEFONE BOX — estilo descarte, coluna esquerda -->
+      <g data-tip="Sem telefone válido e fila não exige Salvar Cartão: salva a resposta 'Sem Telefone' no Case Manager e segue para o próximo caso, sem tratar como humano nem automático.">
+        <rect x="60" y="730" width="200" height="110" rx="8" fill="url(#grad-descarte2)" stroke="rgba(204,0,0,0.5)" stroke-width="1.5"/>
+        <text class="node-label" x="160" y="762" font-size="13">📵</text>
+        <text class="node-label" x="160" y="781" font-size="12" font-weight="700">Sem Telefone</text>
+        <text class="node-label node-label-sm" x="160" y="799">Salvar Cartão CM</text>
+        <text class="node-label node-label-sm" x="160" y="815">→ próximo caso</text>
+      </g>
 
       <!-- REGRA 5 -->
       <g data-tip="Mesa de Decisão: verifica se o cadastro ou a alteração cadastral tem menos de 2 meses. Se o telefone não for validado, vai para humano.">
@@ -633,19 +662,17 @@
         <text class="node-label" x="760" y="660" font-size="11">📤 Disparo Humano</text>
       </g>
 
-      <!-- DESCARTE BOX -->
+      <!-- DESCARTE BOX (coluna esquerda) -->
       <g data-tip="Caso descartado: block code não passível, cartão bloqueado ou bypass ativo. Salva descarte no Case Manager.">
-        <rect x="660" y="130" width="200" height="100" rx="8" fill="url(#grad-descarte2)" stroke="rgba(204,0,0,0.5)" stroke-width="1.5"/>
-        <text class="node-label" x="760" y="165" font-size="14">🗑</text>
-        <text class="node-label" x="760" y="183" font-size="12" font-weight="700">Descarte</text>
-        <text class="node-label node-label-sm" x="760" y="200">Salva no Case Manager</text>
-        <text class="node-label node-label-sm" x="760" y="215">→ próximo caso</text>
+        <rect x="-20" y="110" width="200" height="100" rx="8" fill="url(#grad-descarte2)" stroke="rgba(204,0,0,0.5)" stroke-width="1.5"/>
+        <text class="node-label" x="80" y="145" font-size="14">🗑</text>
+        <text class="node-label" x="80" y="163" font-size="12" font-weight="700">Descarte</text>
+        <text class="node-label node-label-sm" x="80" y="181">Salva no Case Manager</text>
+        <text class="node-label node-label-sm" x="80" y="197">→ próximo caso</text>
       </g>
 
       <!-- Humano → RabbitMQ -->
       <path d="M760,1070 L760,1152 L570,1152" fill="none" stroke="rgba(194,80,0,0.35)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr2)"/>
-
-      <!-- Descarte → próximo caso (loops out) -->
 
       <!-- ══ SPINE EDGES ══ -->
       <line x1="420" y1="64" x2="420" y2="110" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#arr2)"/>
@@ -661,10 +688,6 @@
       <!-- R3 Passou -> R4 -->
       <line x1="420" y1="480" x2="420" y2="530" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr2)"/>
       <text x="430" y="512" class="edge-label" fill="rgba(100,200,100,0.7)">Passou</text>
-
-      <!-- R4 Sim -> R5 -->
-      <line x1="420" y1="620" x2="420" y2="670" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr2)"/>
-      <text x="430" y="652" class="edge-label" fill="rgba(100,200,100,0.7)">Sim</text>
 
       <!-- R5 Passou -> R6 -->
       <line x1="420" y1="760" x2="420" y2="810" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr2)"/>
