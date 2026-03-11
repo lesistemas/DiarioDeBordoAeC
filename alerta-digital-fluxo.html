@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+'<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -709,6 +709,206 @@
 
     </svg>
   </div>
+  
+
+  <!-- ══════════════ DIVISOR 03 ══════════════ -->
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-label">03 · Regras de Transações Suspeitas</span>
+    <div class="section-divider-line" style="background:linear-gradient(to left,rgba(204,0,0,0.4),rgba(255,255,255,0.05))"></div>
+  </div>
+
+  <div class="diagram-section" id="diag-suspeitas">
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#CC0000"></div>Entrada / Saída</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#1C3A6B"></div>Verificação</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#1A6B3A"></div>Segue mensageria automática</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#C25000"></div>Encaminha ao atendimento humano</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#5A1E8C"></div>Subcritério da exceção</div>
+    </div>
+
+    <svg viewBox="0 0 1100 1080" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="arr3"  markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="rgba(255,255,255,0.32)"/></marker>
+      <marker id="arr3g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#1A6B3A"/></marker>
+      <marker id="arr3o" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#C25000"/></marker>
+      <marker id="arr3r" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#CC0000"/></marker>
+
+      <linearGradient id="g3red"    x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#EE1515"/><stop offset="100%" stop-color="#880000"/></linearGradient>
+      <linearGradient id="g3act"    x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1E3A6E"/><stop offset="100%" stop-color="#0E1F40"/></linearGradient>
+      <linearGradient id="g3dec"    x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1A2E50"/><stop offset="100%" stop-color="#0C1828"/></linearGradient>
+      <linearGradient id="g3green"  x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1A5C2A"/><stop offset="100%" stop-color="#0A2C14"/></linearGradient>
+      <linearGradient id="g3orange" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8C3800"/><stop offset="100%" stop-color="#4A1C00"/></linearGradient>
+      <linearGradient id="g3purple" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#501880"/><stop offset="100%" stop-color="#280840"/></linearGradient>
+      <linearGradient id="g3gold"   x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#604000"/><stop offset="100%" stop-color="#301E00"/></linearGradient>
+      <linearGradient id="shine3"   x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,0.09)"/><stop offset="35%" stop-color="rgba(255,255,255,0)"/></linearGradient>
+    </defs>
+
+    <!-- ENTRADA -->
+    <g data-tip="A regra recebe a lista completa de transações do cartão coletadas no Case Manager. Decide quais incluir no alerta e se o caso vai para mensageria automática ou para um analista.">
+      <rect x="280" y="40" width="500" height="62" rx="31" fill="url(#g3red)" stroke="rgba(255,100,100,0.35)" stroke-width="1.5"/>
+      <rect x="280" y="40" width="500" height="31" rx="31" fill="url(#shine3)"/>
+      <text class="node-label" x="530" y="63" font-weight="700">📥  Transações do cartão recebidas</text>
+      <text class="node-label node-label-sm" x="530" y="82">Lista completa coletada no Case Manager</text>
+    </g>
+    <line x1="530" y1="102" x2="530" y2="140" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr3)"/>
+
+    <!-- PASSO 1: Filtro SUSPEITA -->
+    <g data-tip="O sistema lê o campo 'Análise' de cada transação e mantém apenas as que contêm a palavra SUSPEITA. Transações com outros status são ignoradas.">
+      <rect x="280" y="140" width="500" height="62" rx="8" fill="url(#g3act)" stroke="rgba(80,120,200,0.22)" stroke-width="1"/>
+      <rect x="280" y="140" width="500" height="28" rx="8" fill="url(#shine3)"/>
+      <text class="node-label" x="530" y="162" font-weight="700">🔎  Filtra apenas transações marcadas como SUSPEITAS</text>
+      <text class="node-label node-label-sm" x="530" y="183">Campo "Análise" contém a palavra SUSPEITA?</text>
+    </g>
+    <line x1="530" y1="202" x2="530" y2="248" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr3)"/>
+
+    <!-- LOSANGO 1: alguma suspeita? cy=296 -->
+    <g data-tip="Se nenhuma transação foi classificada como suspeita, não há base para acionar o alerta. O caso é encaminhado a um analista para avaliação manual.">
+      <polygon points="530,248 710,296 530,344 350,296" fill="url(#g3dec)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+      <text class="node-label-decision" x="530" y="288">Encontrou alguma transação suspeita?</text>
+      <text class="node-label node-label-sm" x="530" y="308">Campo Análise · contém "SUSPEIT"</text>
+    </g>
+
+    <!-- Nenhuma → humano (direita) -->
+    <path d="M710,296 L870,296 L870,360" fill="none" stroke="rgba(194,80,0,0.65)" stroke-width="1.5" marker-end="url(#arr3o)"/>
+    <text x="718" y="286" class="edge-label" fill="rgba(240,120,40,0.85)">Nenhuma</text>
+    <g data-tip="Sem transações suspeitas identificadas — o caso não tem base para mensageria. Encaminhado ao analista.">
+      <rect x="780" y="360" width="220" height="62" rx="8" fill="url(#g3orange)" stroke="rgba(200,90,0,0.32)" stroke-width="1.5"/>
+      <rect x="780" y="360" width="220" height="28" rx="8" fill="url(#shine3)"/>
+      <text class="node-label" x="890" y="381">👤  Atendimento humano</text>
+      <text class="node-label node-label-sm" x="890" y="402">Nenhuma transação suspeita</text>
+    </g>
+
+    <!-- Sim → continua -->
+    <line x1="530" y1="344" x2="530" y2="390" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr3)"/>
+    <text x="544" y="372" class="edge-label" fill="rgba(100,200,100,0.8)">Sim</text>
+
+    <!-- LOSANGO 2: suspeitas HOJE? cy=438 -->
+    <g data-tip="O sistema verifica se alguma das transações suspeitas ocorreu no dia de hoje. Isso separa casos recentes de casos de dias anteriores, que têm tratamento diferente.">
+      <polygon points="530,390 710,438 530,486 350,438" fill="url(#g3dec)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+      <text class="node-label-decision" x="530" y="430">Alguma suspeita é do dia de hoje?</text>
+      <text class="node-label node-label-sm" x="530" y="450">Compara data da transação com a data atual</text>
+    </g>
+
+    <!-- Não → caso antigo (direita) -->
+    <path d="M710,438 L870,438 L870,500" fill="none" stroke="rgba(107,47,160,0.65)" stroke-width="1.5" marker-end="url(#arr3)"/>
+    <text x="718" y="428" class="edge-label" fill="rgba(160,110,240,0.85)">Não</text>
+    <g data-tip="Todas as suspeitas são de datas anteriores — caso antigo ainda em aberto. A regra seleciona apenas a transação suspeita mais recente para compor o alerta, evitando sobrecarregar o cliente com histórico.">
+      <rect x="780" y="500" width="220" height="72" rx="8" fill="url(#g3gold)" stroke="rgba(180,130,0,0.32)" stroke-width="1.5"/>
+      <rect x="780" y="500" width="220" height="30" rx="8" fill="url(#shine3)"/>
+      <text class="node-label" x="890" y="521">📅  Caso antigo</text>
+      <text class="node-label node-label-sm" x="890" y="543">Usa só a última suspeita</text>
+      <text class="node-label node-label-sm" x="890" y="561">Segue mensageria</text>
+    </g>
+    <path d="M890,572 L890,962 L720,962" fill="none" stroke="rgba(26,107,58,0.22)" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr3g)"/>
+
+    <!-- Sim → continua -->
+    <line x1="530" y1="486" x2="530" y2="540" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr3)"/>
+    <text x="544" y="518" class="edge-label" fill="rgba(100,200,100,0.8)">Sim</text>
+
+    <!-- LOSANGO 3: ≤3? cy=588 -->
+    <g data-tip="O limite de 3 transações garante que a mensagem ao cliente seja objetiva e legível. Acima de 3, há risco de fraude coordenada — o analista precisa avaliar.">
+      <polygon points="530,540 710,588 530,636 350,588" fill="url(#g3dec)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+      <text class="node-label-decision" x="530" y="580">Quantas transações suspeitas hoje?</text>
+      <text class="node-label node-label-sm" x="530" y="600">Conta apenas as suspeitas do dia atual</text>
+    </g>
+
+    <!-- ≤3 → mensageria (direita) -->
+    <path d="M710,588 L870,588 L870,650" fill="none" stroke="rgba(26,107,58,0.65)" stroke-width="1.5" marker-end="url(#arr3g)"/>
+    <text x="718" y="577" class="edge-label" fill="rgba(60,200,100,0.85)">1, 2 ou 3</text>
+    <g data-tip="Até 3 transações suspeitas no dia. Volume adequado para o cliente avaliar. Todas são incluídas na mensagem de alerta.">
+      <rect x="780" y="650" width="220" height="72" rx="8" fill="url(#g3green)" stroke="rgba(40,160,70,0.32)" stroke-width="1.5"/>
+      <rect x="780" y="650" width="220" height="30" rx="8" fill="url(#shine3)"/>
+      <text class="node-label" x="890" y="671">✅  Mensageria automática</text>
+      <text class="node-label node-label-sm" x="890" y="693">Inclui todas no alerta</text>
+      <text class="node-label node-label-sm" x="890" y="711">máx. 3 transações</text>
+    </g>
+    <path d="M890,722 L890,962 L720,962" fill="none" stroke="rgba(26,107,58,0.22)" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr3g)"/>
+
+    <!-- >3 → exceção -->
+    <line x1="530" y1="636" x2="530" y2="690" stroke="rgba(194,80,0,0.7)" stroke-width="1.5" marker-end="url(#arr3o)"/>
+    <text x="544" y="668" class="edge-label" fill="rgba(240,120,40,0.85)">Mais de 3</text>
+
+    <!-- Label exceção -->
+    <text x="530" y="706" font-family="'DM Sans',sans-serif" font-size="9" font-weight="600" fill="rgba(180,140,255,0.45)" text-anchor="middle" letter-spacing="3" text-transform="uppercase">AVALIA EXCEÇÃO — MESMO EC · MESMO VALOR · HORÁRIOS PRÓXIMOS</text>
+
+    <!-- 3 SUBCRITÉRIOS  y=720..820 -->
+    <g data-tip="Verifica se todas as transações suspeitas foram feitas no mesmo estabelecimento. Usa o Código do Estabelecimento como identificador primário; nome como fallback.">
+      <rect x="50" y="720" width="286" height="88" rx="8" fill="url(#g3purple)" stroke="rgba(140,60,220,0.3)" stroke-width="1.5"/>
+      <rect x="50" y="720" width="286" height="34" rx="8" fill="url(#shine3)"/>
+      <text class="node-label" x="68" y="742" text-anchor="start" font-weight="700">🏪  Mesmo estabelecimento?</text>
+      <text class="node-label node-label-sm" x="68" y="763" text-anchor="start">Todas as compras no mesmo lugar</text>
+      <text class="node-label node-label-sm" x="68" y="780" text-anchor="start">Código EC ou nome como fallback</text>
+    </g>
+
+    <g data-tip="Verifica se todos os valores das transações suspeitas são idênticos. Valores iguais repetidos no mesmo estabelecimento são padrão comum de duplicata técnica.">
+      <rect x="387" y="720" width="286" height="88" rx="8" fill="url(#g3purple)" stroke="rgba(140,60,220,0.3)" stroke-width="1.5"/>
+      <rect x="387" y="720" width="286" height="34" rx="8" fill="url(#shine3)"/>
+      <text class="node-label" x="405" y="742" text-anchor="start" font-weight="700">💰  Valores idênticos?</text>
+      <text class="node-label node-label-sm" x="405" y="763" text-anchor="start">Mesmo valor em todas as transações</text>
+      <text class="node-label node-label-sm" x="405" y="780" text-anchor="start">Ex: R$ 49,90 repetido 4 vezes</text>
+    </g>
+
+    <g data-tip="Verifica se o intervalo entre cada compra consecutiva é inferior a 5 minutos. Esse padrão indica duplicidade técnica (retentativa automática do sistema) e não fraude real.">
+      <rect x="724" y="720" width="286" height="88" rx="8" fill="url(#g3purple)" stroke="rgba(140,60,220,0.3)" stroke-width="1.5"/>
+      <rect x="724" y="720" width="286" height="34" rx="8" fill="url(#shine3)"/>
+      <text class="node-label" x="742" y="742" text-anchor="start" font-weight="700">⏱  Horários consecutivos &lt; 5 min?</text>
+      <text class="node-label node-label-sm" x="742" y="763" text-anchor="start">Intervalo entre compras ≤ 5 minutos</text>
+      <text class="node-label node-label-sm" x="742" y="780" text-anchor="start">Padrão de duplicidade técnica</text>
+    </g>
+
+    <!-- conectores spine → subcritérios -->
+    <path d="M530,710 L530,720" fill="none" stroke="rgba(140,60,220,0.4)" stroke-width="1.5" marker-end="url(#arr3)"/>
+    <line x1="193" y1="715" x2="867" y2="715" stroke="rgba(140,60,220,0.22)" stroke-width="1"/>
+    <path d="M193,715 L193,720" fill="none" stroke="rgba(140,60,220,0.4)" stroke-width="1.5" marker-end="url(#arr3)"/>
+    <path d="M867,715 L867,720" fill="none" stroke="rgba(140,60,220,0.4)" stroke-width="1.5" marker-end="url(#arr3)"/>
+
+    <!-- LOSANGO 4: exceção válida? cy=898 -->
+    <line x1="530" y1="808" x2="530" y2="848" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr3)"/>
+    <g data-tip="Os 3 critérios precisam ser verdadeiros ao mesmo tempo. Se todos forem atendidos, é provável duplicidade técnica — segue mensageria com as 3 últimas transações. Se qualquer critério falhar, o volume acima de 3 indica risco real e o caso vai para análise humana.">
+      <polygon points="530,848 710,896 530,944 350,896" fill="url(#g3dec)" stroke="rgba(140,60,220,0.28)" stroke-width="1.5"/>
+      <text class="node-label-decision" x="530" y="886">Os 3 critérios são atendidos</text>
+      <text class="node-label node-label-sm" x="530" y="906">ao mesmo tempo?</text>
+    </g>
+
+    <!-- Exceção válida → mensageria (direita) -->
+    <path d="M710,896 L870,896" fill="none" stroke="rgba(26,107,58,0.65)" stroke-width="1.5" marker-end="url(#arr3g)"/>
+    <text x="718" y="884" class="edge-label" fill="rgba(60,200,100,0.85)">Sim — exceção</text>
+    <g data-tip="Padrão de duplicidade técnica confirmado. O sistema segue com mensageria, incluindo as 3 transações mais recentes no alerta ao cliente.">
+      <rect x="872" y="866" width="188" height="62" rx="8" fill="url(#g3green)" stroke="rgba(40,160,70,0.32)" stroke-width="1.5"/>
+      <rect x="872" y="866" width="188" height="28" rx="8" fill="url(#shine3)"/>
+      <text class="node-label" x="966" y="886">✅  Mensageria</text>
+      <text class="node-label node-label-sm" x="966" y="908">Usa 3 últimas</text>
+    </g>
+    <path d="M966,928 L966,972 L720,972" fill="none" stroke="rgba(26,107,58,0.18)" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr3g)"/>
+
+    <!-- Exceção inválida → humano (esquerda) -->
+    <path d="M350,896 L140,896" fill="none" stroke="rgba(194,80,0,0.65)" stroke-width="1.5" marker-end="url(#arr3o)"/>
+    <text x="158" y="884" class="edge-label" fill="rgba(240,120,40,0.85)">Não — humano</text>
+    <g data-tip="Com mais de 3 suspeitas no dia e sem padrão de duplicidade, o risco é alto o suficiente para exigir avaliação humana. O caso é encaminhado ao analista com todas as transações identificadas.">
+      <rect x="30" y="866" width="188" height="62" rx="8" fill="url(#g3orange)" stroke="rgba(200,90,0,0.32)" stroke-width="1.5"/>
+      <rect x="30" y="866" width="188" height="28" rx="8" fill="url(#shine3)"/>
+      <text class="node-label" x="124" y="886">👤  Humano</text>
+      <text class="node-label node-label-sm" x="124" y="908">Mais de 3 · risco alto</text>
+    </g>
+    <path d="M124,928 L124,972 L310,972" fill="none" stroke="rgba(194,80,0,0.18)" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr3o)"/>
+    <!-- Humano do nenhuma suspeita também converge -->
+    <path d="M890,422 L958,422 L958,982 L700,982" fill="none" stroke="rgba(194,80,0,0.12)" stroke-width="1.5" stroke-dasharray="5,5" marker-end="url(#arr3o)"/>
+
+    <!-- SAÍDA MENSAGERIA -->
+    <g data-tip="O resultado da regra é uma lista de transações selecionadas (máx. 3) que serão incluídas no alerta enviado ao cliente. O robô segue para montar e disparar a mensagem.">
+      <rect x="310" y="944" width="390" height="62" rx="31" fill="url(#g3green)" stroke="rgba(40,160,70,0.38)" stroke-width="1.5"/>
+      <rect x="310" y="944" width="390" height="31" rx="31" fill="url(#shine3)"/>
+      <text class="node-label" x="505" y="966" font-weight="700">✅  Segue para mensageria automática</text>
+      <text class="node-label node-label-sm" x="505" y="987">Transações selecionadas incluídas na mensagem</text>
+    </g>
+
+    <!-- nota humano -->
+    <text x="505" y="1042" font-family="'DM Sans',sans-serif" font-size="11" fill="rgba(240,130,40,0.5)" text-anchor="middle">👤  Casos encaminhados ao atendimento humano retornam ao motor de regras principal</text>
+
+    </svg>
+  </div>
+
 </main>
 
 <div class="tooltip" id="tooltip"></div>
