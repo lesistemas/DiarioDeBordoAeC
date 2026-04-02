@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>FLUXO 01 · Fluxo Completo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{min-height:100%;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);font-family:'Outfit',sans-serif}
+body{padding:48px;display:flex;justify-content:center}
+
+.page{
+  width:1100px;
+  background:rgba(255,255,255,0.04);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px;
+  padding:48px;
+  box-shadow:0 25px 80px rgba(0,0,0,0.5);
+}
+
+/* header */
+.header{margin-bottom:36px;display:flex;align-items:center;justify-content:space-between}
+.left .brand{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:8px}
+h1{font-size:28px;font-weight:700;color:#fff}
+h1 span{background:linear-gradient(90deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.pill{background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);color:#a78bfa;font-size:11px;font-weight:500;letter-spacing:2px;padding:8px 18px;border-radius:24px;white-space:nowrap}
+
+/* layout com cards */
+.layout{display:flex;gap:32px;align-items:flex-start}
+
+/* painel de cards */
+.cards-panel{width:280px;flex-shrink:0}
+.cards-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.leg{display:flex;align-items:center;gap:5px;padding:3px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;font-size:8.5px;color:rgba(255,255,255,0.4)}
+.leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+.card{
+  display:flex;gap:10px;
+  margin-bottom:6px;
+  padding:10px 12px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  border-left:3px solid transparent;
+  border-radius:8px;
+}
+.card.cat-start{border-left-color:#f87171}
+.card.cat-system{border-left-color:#60a5fa}
+.card.cat-redis{border-left-color:#f87171}
+.card.cat-decision{border-left-color:rgba(255,255,255,0.3)}
+.card.cat-discard{border-left-color:#a78bfa}
+.card.cat-human{border-left-color:#fb923c}
+.card.cat-auto{border-left-color:#4ade80}
+.card.cat-gw{border-left-color:#facc15}
+
+.card-num{font-size:13px;font-weight:700;color:rgba(255,255,255,0.2);min-width:28px;flex-shrink:0;padding-top:1px}
+.card-body{display:flex;flex-direction:column;gap:3px}
+.card-label{font-size:11px;font-weight:600;color:rgba(255,255,255,0.8)}
+.card-desc{font-size:9.5px;font-weight:400;color:rgba(255,255,255,0.35);line-height:1.5}
+
+/* diagram */
+.diag-wrap{flex:1;min-width:0}
+svg{width:100%;height:auto;display:block}
+
+/* SVG text classes */
+.nl{font-family:'Outfit',sans-serif;font-size:11px;font-weight:500;fill:rgba(255,255,255,0.85);text-anchor:middle;dominant-baseline:middle}
+.nl-sm{font-size:9px;fill:rgba(255,255,255,0.35);font-weight:300}
+.nl-dec{font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;fill:rgba(255,255,255,0.8);text-anchor:middle;dominant-baseline:middle}
+.el{font-family:'Outfit',sans-serif;font-size:8.5px;font-weight:500}
+.num-b{font-family:'Outfit',sans-serif;font-size:8px;font-weight:700;fill:rgba(255,255,255,0.15)}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="left">
+      <div class="brand">Bradescard · Prevenção a Fraudes</div>
+      <h1>Alerta <span>Digital</span></h1>
+    </div>
+    <div class="pill">FLUXO 01</div>
+  </div>
+  <div class="layout">
+    
+    <div class="diag-wrap">
+      <svg viewBox="0 0 820 1300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="ar" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="rgba(255,255,255,0.25)"/></marker>
+  <marker id="arg" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#4ade80"/></marker>
+  <marker id="aro" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#fb923c"/></marker>
+  <marker id="arp" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#a78bfa"/></marker>
+  <marker id="arr" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#f87171"/></marker>
+  <linearGradient id="gs" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#60a5fa"/>
+  </linearGradient>
+</defs>
+
+<!-- ① START -->
+<rect x="255" y="18" width="310" height="44" rx="22" fill="url(#gs)"/>
+<text class="nl" x="410" y="40" style="font-weight:700">🤖  Início do Robô</text>
+<text class="num-b" x="562" y="24">①</text>
+
+<!-- ② Parâmetros -->
+<rect x="255" y="96" width="310" height="44" rx="10" fill="rgba(96,165,250,0.12)" stroke="rgba(96,165,250,0.25)" stroke-width="1"/>
+<text class="nl" x="410" y="112">⚙  Carregar Parâmetros</text>
+<text class="nl nl-sm" x="410" y="126">AutomationRoom</text>
+<text class="num-b" x="562" y="102">②</text>
+
+<!-- ③ Buscar caso -->
+<rect x="255" y="174" width="310" height="44" rx="10" fill="rgba(96,165,250,0.12)" stroke="rgba(96,165,250,0.25)" stroke-width="1"/>
+<text class="nl" x="410" y="190">📋  Buscar Caso — Case Manager</text>
+<text class="nl nl-sm" x="410" y="204">por ordem de prioridade de fila</text>
+<text class="num-b" x="562" y="180">③</text>
+<!-- sem caso loop -->
+<path d="M255,196 Q66,196 66,230 Q66,270 66,278 Q66,292 86,292 Q108,292 255,292" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#ar)"/>
+<text x="155" y="242" class="el" fill="rgba(255,255,255,0.2)" text-anchor="middle">sem caso</text>
+
+<!-- ④ Coletar -->
+<rect x="255" y="260" width="310" height="44" rx="10" fill="rgba(96,165,250,0.12)" stroke="rgba(96,165,250,0.25)" stroke-width="1"/>
+<text class="nl" x="410" y="276">📑  Coletar Cartão e Transações</text>
+<text class="nl nl-sm" x="410" y="290">IdCaso · últimas 4 · alertas</text>
+<text class="num-b" x="562" y="266">④</text>
+
+<!-- ⑤ Regra suspeita -->
+<rect x="255" y="338" width="310" height="44" rx="10" fill="rgba(96,165,250,0.12)" stroke="rgba(96,165,250,0.25)" stroke-width="1"/>
+<text class="nl" x="410" y="354">🔍  Aplicar Regra de Suspeita</text>
+<text class="nl nl-sm" x="410" y="368">em transações coletadas</text>
+<text class="num-b" x="562" y="344">⑤</text>
+
+<!-- ⑥ PW/Vision -->
+<rect x="255" y="416" width="310" height="44" rx="10" fill="rgba(96,165,250,0.12)" stroke="rgba(96,165,250,0.25)" stroke-width="1"/>
+<text class="nl" x="410" y="432">💳  Consultar PW / Vision</text>
+<text class="nl nl-sm" x="410" y="446">BlockCode · Telefone · CPF · Status</text>
+<text class="num-b" x="562" y="422">⑥</text>
+
+<!-- ⑦ Mesa -->
+<rect x="255" y="494" width="310" height="44" rx="10" fill="rgba(96,165,250,0.12)" stroke="rgba(96,165,250,0.25)" stroke-width="1"/>
+<text class="nl" x="410" y="510">📞  Mesa de Decisão</text>
+<text class="nl nl-sm" x="410" y="524">buscar telefones · validação cadastral</text>
+<text class="num-b" x="562" y="500">⑦</text>
+
+<!-- ⑧ Redis -->
+<rect x="255" y="572" width="310" height="44" rx="10" fill="rgba(248,113,113,0.08)" stroke="rgba(248,113,113,0.25)" stroke-width="1"/>
+<text class="nl" x="410" y="588">🔴  Lista Negativa — Redis</text>
+<text class="nl nl-sm" x="410" y="602" fill="rgba(248,113,113,0.5)">alimentado por robô externo</text>
+<text class="num-b" x="562" y="578">⑧</text>
+
+<!-- ⑨ DECISION -->
+<polygon points="410,666 574,716 410,766 246,716" fill="rgba(255,255,255,0.05)" stroke="url(#gs)" stroke-width="1.5"/>
+<text class="nl-dec" x="410" y="708" style="font-size:13px">⚡  Motor de Regras</text>
+<text class="nl nl-sm" x="410" y="726">Descarte · Humano · Automático</text>
+<text class="num-b" x="570" y="674">⑨</text>
+
+<!-- DESCARTE col -->
+<rect x="14" y="808" width="196" height="38" rx="8" fill="rgba(167,139,250,0.1)" stroke="rgba(167,139,250,0.25)" stroke-width="1"/>
+<text class="nl" x="112" y="827" fill="#a78bfa" style="font-size:9.5px">⑩  Registrar Descarte</text>
+<rect x="14" y="876" width="196" height="38" rx="8" fill="rgba(167,139,250,0.08)" stroke="rgba(167,139,250,0.18)" stroke-width="1"/>
+<text class="nl" x="112" y="895" fill="#a78bfa" style="font-size:9.5px">⑪  Salvar Descarte — CM</text>
+
+<!-- HUMANO col -->
+<rect x="255" y="808" width="310" height="38" rx="8" fill="rgba(251,146,60,0.1)" stroke="rgba(251,146,60,0.25)" stroke-width="1"/>
+<text class="nl" x="410" y="827" fill="#fb923c" style="font-size:9.5px">⑫  Registrar Caso (Humano)</text>
+<rect x="255" y="876" width="310" height="38" rx="8" fill="rgba(251,146,60,0.07)" stroke="rgba(251,146,60,0.18)" stroke-width="1"/>
+<text class="nl" x="410" y="895" fill="#fb923c" style="font-size:9.5px">⑬  Disparo Tratativa Humana</text>
+<rect x="255" y="944" width="310" height="38" rx="8" fill="rgba(251,146,60,0.07)" stroke="rgba(251,146,60,0.15)" stroke-width="1"/>
+<text class="nl" x="410" y="963" fill="#fb923c" style="font-size:9.5px">⑭  Publicar RabbitMQ</text>
+
+<!-- AUTO col -->
+<rect x="610" y="808" width="196" height="38" rx="8" fill="rgba(74,222,128,0.08)" stroke="rgba(74,222,128,0.25)" stroke-width="1"/>
+<text class="nl" x="708" y="827" fill="#4ade80" style="font-size:9.5px">⑮  Preventivo P</text>
+<rect x="610" y="876" width="196" height="38" rx="8" fill="rgba(74,222,128,0.07)" stroke="rgba(74,222,128,0.18)" stroke-width="1"/>
+<text class="nl" x="708" y="895" fill="#4ade80" style="font-size:9.5px">⑯  Salvar Cartão — CM</text>
+<rect x="610" y="944" width="196" height="38" rx="8" fill="rgba(250,204,21,0.06)" stroke="rgba(250,204,21,0.2)" stroke-width="1"/>
+<text class="nl" x="708" y="963" fill="#facc15" style="font-size:9.5px">⑰  Registrar GW</text>
+<rect x="610" y="1012" width="196" height="38" rx="8" fill="rgba(250,204,21,0.06)" stroke="rgba(250,204,21,0.15)" stroke-width="1"/>
+<text class="nl" x="708" y="1031" fill="#facc15" style="font-size:9.5px">⑱  Disparo Mailing</text>
+<rect x="610" y="1080" width="196" height="38" rx="8" fill="rgba(250,204,21,0.05)" stroke="rgba(250,204,21,0.12)" stroke-width="1"/>
+<text class="nl" x="708" y="1099" fill="#facc15" style="font-size:9.5px">⑲  RabbitMQ (Auto)</text>
+
+<!-- ⑳ FIM -->
+<rect x="255" y="1218" width="310" height="44" rx="22" fill="url(#gs)"/>
+<text class="nl" x="410" y="1240" style="font-weight:700">🔁  Fim — Próximo Loop</text>
+<text class="num-b" x="562" y="1224">⑳</text>
+
+<!-- SPINE -->
+<line x1="410" y1="62"  x2="410" y2="96"  stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="410" y1="140" x2="410" y2="174" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="410" y1="218" x2="410" y2="260" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#ar)"/>
+<text x="420" y="248" class="el" fill="rgba(255,255,255,0.2)">caso encontrado</text>
+<line x1="410" y1="304" x2="410" y2="338" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="410" y1="382" x2="410" y2="416" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="410" y1="460" x2="410" y2="494" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="410" y1="538" x2="410" y2="572" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#ar)"/>
+<line x1="410" y1="616" x2="410" y2="666" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#ar)"/>
+
+<!-- BRANCHES from diamond -->
+<path d="M246,716 L112,716 L112,808" fill="none" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arp)"/>
+<text x="116" y="706" class="el" fill="#a78bfa">Descarte</text>
+<line x1="410" y1="766" x2="410" y2="808" stroke="#fb923c" stroke-width="1.5" marker-end="url(#aro)"/>
+<text x="418" y="800" class="el" fill="#fb923c">Humano</text>
+<path d="M574,716 L708,716 L708,808" fill="none" stroke="#4ade80" stroke-width="1.5" marker-end="url(#arg)"/>
+<text x="580" y="706" class="el" fill="#4ade80">Auto</text>
+
+<!-- BRANCH INTERNALS -->
+<line x1="112" y1="846" x2="112" y2="876" stroke="rgba(167,139,250,0.4)" stroke-width="1.5" marker-end="url(#arp)"/>
+<line x1="410" y1="846" x2="410" y2="876" stroke="rgba(251,146,60,0.4)" stroke-width="1.5" marker-end="url(#aro)"/>
+<line x1="410" y1="914" x2="410" y2="944" stroke="rgba(251,146,60,0.4)" stroke-width="1.5" marker-end="url(#aro)"/>
+<line x1="708" y1="846" x2="708" y2="876" stroke="rgba(74,222,128,0.4)" stroke-width="1.5" marker-end="url(#arg)"/>
+<line x1="708" y1="914" x2="708" y2="944" stroke="rgba(74,222,128,0.4)" stroke-width="1.5" marker-end="url(#arg)"/>
+<line x1="708" y1="982" x2="708" y2="1012" stroke="rgba(250,204,21,0.4)" stroke-width="1.5" marker-end="url(#arg)"/>
+<line x1="708" y1="1050" x2="708" y2="1080" stroke="rgba(250,204,21,0.4)" stroke-width="1.5" marker-end="url(#arg)"/>
+
+<!-- CONVERGE -->
+<path d="M112,914 L112,1240 L255,1240" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#ar)"/>
+<path d="M410,982 L410,1218" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#ar)"/>
+<path d="M708,1118 L708,1240 L565,1240" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#ar)"/>
+
+<!-- LOOP -->
+<path d="M255,1240 L28,1240 L28,196 L255,196" fill="none" stroke="rgba(167,139,250,0.15)" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arp)"/>
+</svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>

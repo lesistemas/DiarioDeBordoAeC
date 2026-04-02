@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>FLUXO 02 · Motor de Regras Detalhado</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{min-height:100%;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);font-family:'Outfit',sans-serif}
+body{padding:48px;display:flex;justify-content:center}
+
+.page{
+  width:1100px;
+  background:rgba(255,255,255,0.04);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px;
+  padding:48px;
+  box-shadow:0 25px 80px rgba(0,0,0,0.5);
+}
+
+/* header */
+.header{margin-bottom:36px;display:flex;align-items:center;justify-content:space-between}
+.left .brand{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:8px}
+h1{font-size:28px;font-weight:700;color:#fff}
+h1 span{background:linear-gradient(90deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.pill{background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);color:#a78bfa;font-size:11px;font-weight:500;letter-spacing:2px;padding:8px 18px;border-radius:24px;white-space:nowrap}
+
+/* layout com cards */
+.layout{display:flex;gap:32px;align-items:flex-start}
+
+/* painel de cards */
+.cards-panel{width:280px;flex-shrink:0}
+.cards-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.leg{display:flex;align-items:center;gap:5px;padding:3px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;font-size:8.5px;color:rgba(255,255,255,0.4)}
+.leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+.card{
+  display:flex;gap:10px;
+  margin-bottom:6px;
+  padding:10px 12px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  border-left:3px solid transparent;
+  border-radius:8px;
+}
+.card.cat-start{border-left-color:#f87171}
+.card.cat-system{border-left-color:#60a5fa}
+.card.cat-redis{border-left-color:#f87171}
+.card.cat-decision{border-left-color:rgba(255,255,255,0.3)}
+.card.cat-discard{border-left-color:#a78bfa}
+.card.cat-human{border-left-color:#fb923c}
+.card.cat-auto{border-left-color:#4ade80}
+.card.cat-gw{border-left-color:#facc15}
+
+.card-num{font-size:13px;font-weight:700;color:rgba(255,255,255,0.2);min-width:28px;flex-shrink:0;padding-top:1px}
+.card-body{display:flex;flex-direction:column;gap:3px}
+.card-label{font-size:11px;font-weight:600;color:rgba(255,255,255,0.8)}
+.card-desc{font-size:9.5px;font-weight:400;color:rgba(255,255,255,0.35);line-height:1.5}
+
+/* diagram */
+.diag-wrap{flex:1;min-width:0}
+svg{width:100%;height:auto;display:block}
+
+/* SVG text classes */
+.nl{font-family:'Outfit',sans-serif;font-size:11px;font-weight:500;fill:rgba(255,255,255,0.85);text-anchor:middle;dominant-baseline:middle}
+.nl-sm{font-size:9px;fill:rgba(255,255,255,0.35);font-weight:300}
+.nl-dec{font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;fill:rgba(255,255,255,0.8);text-anchor:middle;dominant-baseline:middle}
+.el{font-family:'Outfit',sans-serif;font-size:8.5px;font-weight:500}
+.num-b{font-family:'Outfit',sans-serif;font-size:8px;font-weight:700;fill:rgba(255,255,255,0.15)}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="left">
+      <div class="brand">Bradescard · Prevenção a Fraudes</div>
+      <h1>Alerta <span>Digital</span></h1>
+    </div>
+    <div class="pill">FLUXO 02</div>
+  </div>
+  <div class="layout">
+    <div class="cards-panel"><div class="legend"><div class="leg"><div class="leg-dot" style="background:#60a5fa"></div>Dados/Entrada</div><div class="leg"><div class="leg-dot" style="background:rgba(255,255,255,0.3)"></div>Verificação</div><div class="leg"><div class="leg-dot" style="background:#f87171"></div>Descarte</div><div class="leg"><div class="leg-dot" style="background:#fb923c"></div>Humano</div><div class="leg"><div class="leg-dot" style="background:#4ade80"></div>Automático</div></div><div class="cards-title">Notas de Processo</div><div class="card cat-system">
+  <span class="card-num">R0</span>
+  <div class="card-body">
+    <span class="card-label">Dados Coletados</span>
+    <span class="card-desc">BlockCode, telefone, transações, datas cadastrais — prontos para avaliação.</span>
+  </div>
+</div><div class="card cat-decision">
+  <span class="card-num">R1</span>
+  <div class="card-body">
+    <span class="card-label">Não Passível · Bloqueado · Bypass</span>
+    <span class="card-desc">BlockCode na lista ou cartão bloqueado ou bypass 2 dias → descarte.</span>
+  </div>
+</div><div class="card cat-decision">
+  <span class="card-num">R2</span>
+  <div class="card-body">
+    <span class="card-label">Fila Exige Humano?</span>
+    <span class="card-desc">Flag ExigeHumano ativo na configuração da fila → analista.</span>
+  </div>
+</div><div class="card cat-decision">
+  <span class="card-num">R3</span>
+  <div class="card-body">
+    <span class="card-label">Suspeitos Exige Humano?</span>
+    <span class="card-desc">HouveErro=true ou SegueTratativaHumano=true → analista.</span>
+  </div>
+</div><div class="card cat-decision">
+  <span class="card-num">R4</span>
+  <div class="card-body">
+    <span class="card-label">Telefone Válido?</span>
+    <span class="card-desc">Sem telefone: comportamento depende de RegraSemTelefone.</span>
+  </div>
+</div><div class="card cat-discard">
+  <span class="card-num">R4b</span>
+  <div class="card-body">
+    <span class="card-label">Fila Teto?</span>
+    <span class="card-desc">Sem telefone e fila teto → salva "Sem Telefone" no CM, próximo caso.</span>
+  </div>
+</div><div class="card cat-decision">
+  <span class="card-num">R5</span>
+  <div class="card-body">
+    <span class="card-label">Mesa de Decisão</span>
+    <span class="card-desc">Valida por CPF se cadastro/alteração &lt;2 meses. Não localizado → humano.</span>
+  </div>
+</div><div class="card cat-decision">
+  <span class="card-num">R6</span>
+  <div class="card-body">
+    <span class="card-label">Lista Negativa Redis?</span>
+    <span class="card-desc">Telefone bloqueado no Redis → humano.</span>
+  </div>
+</div><div class="card cat-auto">
+  <span class="card-num">R7</span>
+  <div class="card-body">
+    <span class="card-label">Preventivo P</span>
+    <span class="card-desc">Bloqueio preventivo P no PW, se fila exigir.</span>
+  </div>
+</div><div class="card cat-gw">
+  <span class="card-num">R8</span>
+  <div class="card-body">
+    <span class="card-label">Disparo de Mailing</span>
+    <span class="card-desc">Registra disparo no Gateway API.</span>
+  </div>
+</div><div class="card cat-gw">
+  <span class="card-num">R9</span>
+  <div class="card-body">
+    <span class="card-label">Publicar RabbitMQ</span>
+    <span class="card-desc">Saída operacional final — automático e humano.</span>
+  </div>
+</div></div>
+    <div class="diag-wrap">
+      <svg viewBox="0 0 900 1280" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="b0"  markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="rgba(255,255,255,0.25)"/></marker>
+  <marker id="b0r" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#f87171"/></marker>
+  <marker id="b0g" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#4ade80"/></marker>
+  <marker id="b0o" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#fb923c"/></marker>
+  <linearGradient id="gs2" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#60a5fa"/>
+  </linearGradient>
+</defs>
+
+<!-- coluna humano fundo -->
+<rect x="650" y="255" width="220" height="820" rx="10" fill="rgba(251,146,60,0.04)" stroke="rgba(251,146,60,0.12)" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="760" y="243" font-family="Outfit,sans-serif" font-size="9" font-weight="700" fill="rgba(251,146,60,0.5)" text-anchor="middle" letter-spacing="2">TRATATIVA HUMANA</text>
+
+<!-- R0 entrada -->
+<rect x="270" y="20" width="300" height="44" rx="22" fill="url(#gs2)"/>
+<text class="nl" x="420" y="36" style="font-weight:700">📥  Dados Coletados</text>
+<text class="nl nl-sm" x="420" y="52">BlockCode · Telefone · CPF · Transações</text>
+
+<!-- R1 Não passível -->
+<polygon points="420,110 560,155 420,200 280,155" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+<text class="nl-dec" x="420" y="148">Não Passível · Bloqueado</text>
+<text class="nl-dec" x="420" y="165" style="font-size:9px;fill:rgba(255,255,255,0.35);font-weight:400">ou Bypass 2 dias?</text>
+<text x="196" y="143" class="el" fill="#f87171" font-weight="700">Sim → Descarte</text>
+<path d="M280,155 L222,155" fill="none" stroke="#f87171" stroke-width="1.5" marker-end="url(#b0r)"/>
+
+<!-- R2 Fila humano -->
+<polygon points="420,250 560,295 420,340 280,295" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+<text class="nl-dec" x="420" y="289">Fila Exige</text>
+<text class="nl-dec" x="420" y="306" style="font-size:9px;fill:rgba(255,255,255,0.35);font-weight:400">Tratativa Humana?</text>
+<path d="M560,295 L650,295" fill="none" stroke="#fb923c" stroke-width="1.5" marker-end="url(#b0o)"/>
+<text x="567" y="285" class="el" fill="#fb923c">Sim</text>
+
+<!-- R3 Suspeitos humano -->
+<polygon points="420,390 560,435 420,480 280,435" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+<text class="nl-dec" x="420" y="429">Regra de Suspeitos</text>
+<text class="nl-dec" x="420" y="446" style="font-size:9px;fill:rgba(255,255,255,0.35);font-weight:400">Exige Humano?</text>
+<path d="M560,435 L650,435" fill="none" stroke="#fb923c" stroke-width="1.5" marker-end="url(#b0o)"/>
+<text x="567" y="425" class="el" fill="#fb923c">Erro / Humano</text>
+
+<!-- R4 Telefone válido -->
+<polygon points="420,530 560,575 420,620 280,575" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+<text class="nl-dec" x="420" y="569">Cliente Possui</text>
+<text class="nl-dec" x="420" y="586" style="font-size:9px;fill:rgba(255,255,255,0.35);font-weight:400">Telefone Válido?</text>
+<path d="M280,575 L160,575 L160,595" fill="none" stroke="#fb923c" stroke-width="1.5" marker-end="url(#b0o)"/>
+<text x="165" y="568" class="el" fill="#fb923c">Não</text>
+
+<!-- R4b Fila Teto -->
+<polygon points="160,595 280,640 160,685 40,640" fill="rgba(248,113,113,0.06)" stroke="rgba(248,113,113,0.2)" stroke-width="1.5"/>
+<text class="nl-dec" x="160" y="634" style="fill:rgba(255,255,255,0.7)">Fila Exige</text>
+<text class="nl-dec" x="160" y="651" style="font-size:9px;fill:rgba(255,255,255,0.35);font-weight:400">Salvar Cartão? (Teto)</text>
+<path d="M280,640 L650,640" fill="none" stroke="#fb923c" stroke-width="1.5" marker-end="url(#b0o)"/>
+<text x="292" y="630" class="el" fill="#fb923c">Não → Humano</text>
+<line x1="160" y1="685" x2="160" y2="730" stroke="#f87171" stroke-width="1.5" marker-end="url(#b0r)"/>
+<text x="168" y="712" class="el" fill="#f87171">Sim</text>
+
+<!-- Sem tel box -->
+<rect x="60" y="730" width="200" height="90" rx="10" fill="rgba(248,113,113,0.08)" stroke="rgba(248,113,113,0.2)" stroke-width="1"/>
+<text class="nl" x="160" y="762">📵  Sem Telefone</text>
+<text class="nl nl-sm" x="160" y="782">Salvar Cartão CM</text>
+<text class="nl nl-sm" x="160" y="798">→ próximo caso</text>
+
+<!-- R5 Mesa de decisão -->
+<polygon points="420,670 560,715 420,760 280,715" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+<text class="nl-dec" x="420" y="709">Mesa de Decisão</text>
+<text class="nl-dec" x="420" y="726" style="font-size:9px;fill:rgba(255,255,255,0.35);font-weight:400">Telefone Válido? (&lt;2 meses)</text>
+<path d="M560,715 L650,715" fill="none" stroke="#fb923c" stroke-width="1.5" marker-end="url(#b0o)"/>
+<text x="540" y="704" class="el" fill="#fb923c">Não localizado</text>
+
+<!-- R6 Lista negativa -->
+<polygon points="420,810 560,855 420,900 280,855" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+<text class="nl-dec" x="420" y="849">Telefone na</text>
+<text class="nl-dec" x="420" y="866" style="font-size:9px;fill:rgba(255,255,255,0.35);font-weight:400">Lista Negativa (Redis)?</text>
+<path d="M560,855 L650,855" fill="none" stroke="#fb923c" stroke-width="1.5" marker-end="url(#b0o)"/>
+<text x="567" y="845" class="el" fill="#fb923c">Bloqueado</text>
+
+<!-- R7 Preventivo P -->
+<rect x="270" y="950" width="300" height="44" rx="10" fill="rgba(74,222,128,0.1)" stroke="rgba(74,222,128,0.25)" stroke-width="1"/>
+<text class="nl" x="420" y="966" fill="#4ade80">🛡  Preventivo P (PW / Vision)</text>
+<text class="nl nl-sm" x="420" y="982">se a fila exigir</text>
+<path d="M570,972 L650,972" fill="none" stroke="#fb923c" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#b0o)" opacity="0.6"/>
+<text x="576" y="962" class="el" fill="#fb923c" opacity="0.7">falhou</text>
+
+<!-- R8 Mailing -->
+<rect x="270" y="1040" width="300" height="44" rx="10" fill="rgba(250,204,21,0.07)" stroke="rgba(250,204,21,0.2)" stroke-width="1"/>
+<text class="nl" x="420" y="1056" fill="#facc15">📤  Disparo de Mailing</text>
+<text class="nl nl-sm" x="420" y="1072">Gateway API</text>
+
+<!-- R9 RabbitMQ -->
+<rect x="270" y="1130" width="300" height="44" rx="10" fill="rgba(250,204,21,0.07)" stroke="rgba(250,204,21,0.2)" stroke-width="1"/>
+<text class="nl" x="420" y="1150" fill="#facc15">📨  Publicar RabbitMQ</text>
+<text class="nl nl-sm" x="420" y="1166">(automático e humano)</text>
+
+<!-- FIM AUTO -->
+<rect x="295" y="1220" width="250" height="44" rx="22" fill="url(#gs2)"/>
+<text class="nl" x="420" y="1242" style="font-weight:700">✅  Fim Automático</text>
+
+<!-- HUMANO column box -->
+<rect x="660" y="270" width="200" height="800" rx="10" fill="rgba(251,146,60,0.09)" stroke="rgba(251,146,60,0.2)" stroke-width="1"/>
+<text class="nl" x="760" y="520" style="font-size:20px">👤</text>
+<text class="nl" x="760" y="548" style="font-size:13px;font-weight:700">Tratativa</text>
+<text class="nl" x="760" y="566" style="font-size:13px;font-weight:700">Humana</text>
+<text class="nl nl-sm" x="760" y="590">Encaminha analistas</text>
+<rect x="680" y="620" width="160" height="30" rx="6" fill="rgba(251,146,60,0.2)"/>
+<text class="nl" x="760" y="638" style="font-size:10px;fill:#fb923c">📤 Disparo Humano</text>
+
+<!-- DESCARTE box -->
+<rect x="20" y="105" width="200" height="90" rx="10" fill="rgba(167,139,250,0.08)" stroke="rgba(167,139,250,0.2)" stroke-width="1"/>
+<text class="nl" x="120" y="135" style="font-size:18px">🗑</text>
+<text class="nl" x="120" y="157" fill="#a78bfa" style="font-size:12px;font-weight:700">Descarte</text>
+<text class="nl nl-sm" x="120" y="178">Salva no CM → próximo</text>
+
+<!-- Humano → RabbitMQ -->
+<path d="M760,1070 L760,1152 L570,1152" fill="none" stroke="rgba(251,146,60,0.3)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#b0)"/>
+
+<!-- SPINE -->
+<line x1="420" y1="64"  x2="420" y2="110"  stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#b0)"/>
+<line x1="420" y1="200" x2="420" y2="250"  stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#b0)"/>
+<text x="430" y="232" class="el" fill="rgba(74,222,128,0.6)">Não</text>
+<line x1="420" y1="340" x2="420" y2="390"  stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#b0)"/>
+<text x="430" y="372" class="el" fill="rgba(74,222,128,0.6)">Não</text>
+<line x1="420" y1="480" x2="420" y2="530"  stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#b0)"/>
+<text x="430" y="512" class="el" fill="rgba(74,222,128,0.6)">Passou</text>
+<line x1="420" y1="620" x2="420" y2="670"  stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#b0)"/>
+<text x="430" y="652" class="el" fill="rgba(74,222,128,0.6)">Sim</text>
+<line x1="420" y1="760" x2="420" y2="810"  stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#b0)"/>
+<text x="430" y="792" class="el" fill="rgba(74,222,128,0.6)">Passou</text>
+<line x1="420" y1="900" x2="420" y2="950"  stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#b0)"/>
+<text x="430" y="932" class="el" fill="rgba(74,222,128,0.6)">Passou</text>
+<line x1="420" y1="994" x2="420" y2="1040" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#b0)"/>
+<line x1="420" y1="1084" x2="420" y2="1130" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#b0)"/>
+<line x1="420" y1="1174" x2="420" y2="1220" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#b0)"/>
+</svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>

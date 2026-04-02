@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>FLUXO 03 · Regras de Transações Suspeitas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{min-height:100%;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);font-family:'Outfit',sans-serif}
+body{padding:48px;display:flex;justify-content:center}
+
+.page{
+  width:1100px;
+  background:rgba(255,255,255,0.04);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px;
+  padding:48px;
+  box-shadow:0 25px 80px rgba(0,0,0,0.5);
+}
+
+/* header */
+.header{margin-bottom:36px;display:flex;align-items:center;justify-content:space-between}
+.left .brand{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:8px}
+h1{font-size:28px;font-weight:700;color:#fff}
+h1 span{background:linear-gradient(90deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.pill{background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3);color:#a78bfa;font-size:11px;font-weight:500;letter-spacing:2px;padding:8px 18px;border-radius:24px;white-space:nowrap}
+
+/* layout com cards */
+.layout{display:flex;gap:32px;align-items:flex-start}
+
+/* painel de cards */
+.cards-panel{width:280px;flex-shrink:0}
+.cards-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.leg{display:flex;align-items:center;gap:5px;padding:3px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;font-size:8.5px;color:rgba(255,255,255,0.4)}
+.leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+.card{
+  display:flex;gap:10px;
+  margin-bottom:6px;
+  padding:10px 12px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  border-left:3px solid transparent;
+  border-radius:8px;
+}
+.card.cat-start{border-left-color:#f87171}
+.card.cat-system{border-left-color:#60a5fa}
+.card.cat-redis{border-left-color:#f87171}
+.card.cat-decision{border-left-color:rgba(255,255,255,0.3)}
+.card.cat-discard{border-left-color:#a78bfa}
+.card.cat-human{border-left-color:#fb923c}
+.card.cat-auto{border-left-color:#4ade80}
+.card.cat-gw{border-left-color:#facc15}
+
+.card-num{font-size:13px;font-weight:700;color:rgba(255,255,255,0.2);min-width:28px;flex-shrink:0;padding-top:1px}
+.card-body{display:flex;flex-direction:column;gap:3px}
+.card-label{font-size:11px;font-weight:600;color:rgba(255,255,255,0.8)}
+.card-desc{font-size:9.5px;font-weight:400;color:rgba(255,255,255,0.35);line-height:1.5}
+
+/* diagram */
+.diag-wrap{flex:1;min-width:0}
+svg{width:100%;height:auto;display:block}
+
+/* SVG text classes */
+.nl{font-family:'Outfit',sans-serif;font-size:11px;font-weight:500;fill:rgba(255,255,255,0.85);text-anchor:middle;dominant-baseline:middle}
+.nl-sm{font-size:9px;fill:rgba(255,255,255,0.35);font-weight:300}
+.nl-dec{font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;fill:rgba(255,255,255,0.8);text-anchor:middle;dominant-baseline:middle}
+.el{font-family:'Outfit',sans-serif;font-size:8.5px;font-weight:500}
+.num-b{font-family:'Outfit',sans-serif;font-size:8px;font-weight:700;fill:rgba(255,255,255,0.15)}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="left">
+      <div class="brand">Bradescard · Prevenção a Fraudes</div>
+      <h1>Alerta <span>Digital</span></h1>
+    </div>
+    <div class="pill">FLUXO 03</div>
+  </div>
+  <div class="layout">
+    
+    <div class="diag-wrap">
+      <svg viewBox="0 0 1100 1080" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="c0"  markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="rgba(255,255,255,0.25)"/></marker>
+  <marker id="c0g" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#4ade80"/></marker>
+  <marker id="c0o" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#fb923c"/></marker>
+  <marker id="c0p" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#a78bfa"/></marker>
+  <linearGradient id="gs3" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#60a5fa"/>
+  </linearGradient>
+</defs>
+
+<!-- ENTRADA -->
+<rect x="280" y="40" width="540" height="52" rx="26" fill="url(#gs3)"/>
+<text class="nl" x="550" y="60" style="font-weight:700">📥  Transações do Cartão Recebidas</text>
+<text class="nl nl-sm" x="550" y="78">Lista completa coletada no Case Manager</text>
+<line x1="550" y1="92" x2="550" y2="136" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#c0)"/>
+
+<!-- F1 Filtro SUSPEITA -->
+<rect x="280" y="136" width="540" height="52" rx="10" fill="rgba(96,165,250,0.12)" stroke="rgba(96,165,250,0.25)" stroke-width="1"/>
+<text class="nl" x="550" y="155" style="font-weight:600">🔎  Filtra apenas transações SUSPEITAS</text>
+<text class="nl nl-sm" x="550" y="174">Campo "Análise" contém "SUSPEITA"?</text>
+<line x1="550" y1="188" x2="550" y2="236" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#c0)"/>
+
+<!-- D1 -->
+<polygon points="550,236 730,284 550,332 370,284" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+<text class="nl-dec" x="550" y="277">Encontrou alguma transação suspeita?</text>
+<text class="nl-dec" x="550" y="295" style="font-size:9px;fill:rgba(255,255,255,0.35);font-weight:400">Campo Análise · contém "SUSPEITA"</text>
+<!-- Nenhuma → humano -->
+<path d="M730,284 L880,284 L880,344" fill="none" stroke="#fb923c" stroke-width="1.5" marker-end="url(#c0o)"/>
+<text x="738" y="274" class="el" fill="#fb923c">Nenhuma</text>
+<rect x="800" y="344" width="200" height="52" rx="10" fill="rgba(251,146,60,0.1)" stroke="rgba(251,146,60,0.25)" stroke-width="1"/>
+<text class="nl" x="900" y="363" fill="#fb923c">👤  Atendimento</text>
+<text class="nl nl-sm" x="900" y="380">Humano</text>
+<!-- Sim → continua -->
+<line x1="550" y1="332" x2="550" y2="378" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#c0)"/>
+<text x="562" y="362" class="el" fill="rgba(74,222,128,0.7)">Sim</text>
+
+<!-- D2 -->
+<polygon points="550,378 730,426 550,474 370,426" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+<text class="nl-dec" x="550" y="419">Alguma suspeita é do dia de hoje?</text>
+<text class="nl-dec" x="550" y="437" style="font-size:9px;fill:rgba(255,255,255,0.35);font-weight:400">Compara data da transação com data atual</text>
+<!-- Não → antigas -->
+<path d="M730,426 L880,426 L880,488" fill="none" stroke="#facc15" stroke-width="1.5" marker-end="url(#c0)"/>
+<text x="738" y="416" class="el" fill="#facc15">Não</text>
+<rect x="800" y="488" width="200" height="62" rx="10" fill="rgba(250,204,21,0.07)" stroke="rgba(250,204,21,0.2)" stroke-width="1"/>
+<text class="nl" x="900" y="509" fill="#facc15">📅  Suspeitas Antigas</text>
+<text class="nl nl-sm" x="900" y="527">Usa transação mais recente</text>
+<text class="nl nl-sm" x="900" y="543">Segue mensageria</text>
+<path d="M900,550 L900,948 L730,948" fill="none" stroke="rgba(74,222,128,0.3)" stroke-width="1" stroke-dasharray="5,4" marker-end="url(#c0g)" opacity="0.7"/>
+<!-- Sim → continua -->
+<line x1="550" y1="474" x2="550" y2="528" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#c0)"/>
+<text x="562" y="508" class="el" fill="rgba(74,222,128,0.7)">Sim</text>
+
+<!-- D3 -->
+<polygon points="550,528 730,576 550,624 370,576" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+<text class="nl-dec" x="550" y="569">Quantas transações suspeitas hoje?</text>
+<text class="nl-dec" x="550" y="587" style="font-size:9px;fill:rgba(255,255,255,0.35);font-weight:400">Conta apenas as suspeitas do dia atual</text>
+<!-- ≤3 → mensageria -->
+<path d="M730,576 L880,576 L880,634" fill="none" stroke="#4ade80" stroke-width="1.5" marker-end="url(#c0g)"/>
+<text x="738" y="566" class="el" fill="#4ade80">1, 2 ou 3</text>
+<rect x="800" y="634" width="200" height="62" rx="10" fill="rgba(74,222,128,0.08)" stroke="rgba(74,222,128,0.25)" stroke-width="1"/>
+<text class="nl" x="900" y="655" fill="#4ade80">✅  Casos do Dia</text>
+<text class="nl nl-sm" x="900" y="673">Usa todas do dia atual</text>
+<text class="nl nl-sm" x="900" y="691">máx. 3 transações</text>
+<path d="M900,696 L900,948 L730,948" fill="none" stroke="rgba(74,222,128,0.3)" stroke-width="1" stroke-dasharray="5,4" marker-end="url(#c0g)" opacity="0.7"/>
+<!-- >3 → exceção -->
+<line x1="550" y1="624" x2="550" y2="672" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#c0)"/>
+<text x="562" y="656" class="el" fill="#fb923c">Mais de 3</text>
+
+<!-- label exceção -->
+<text x="550" y="690" font-family="Outfit,sans-serif" font-size="8.5" font-weight="700" fill="rgba(167,139,250,0.6)" text-anchor="middle" letter-spacing="2">AVALIA EXCEÇÃO — MESMO EC · MESMO VALOR · HORÁRIOS PRÓXIMOS</text>
+
+<!-- 3 subcritérios -->
+<rect x="30"  y="704" width="286" height="78" rx="10" fill="rgba(167,139,250,0.08)" stroke="rgba(167,139,250,0.2)" stroke-width="1"/>
+<text class="nl" x="50"  y="728" text-anchor="start" fill="#a78bfa" style="font-weight:600">🏪  Mesmo estabelecimento?</text>
+<text class="nl nl-sm" x="50"  y="748" text-anchor="start">Todas as compras no mesmo lugar</text>
+<text class="nl nl-sm" x="50"  y="765" text-anchor="start">Código EC ou nome como fallback</text>
+
+<rect x="367" y="704" width="366" height="78" rx="10" fill="rgba(167,139,250,0.08)" stroke="rgba(167,139,250,0.2)" stroke-width="1"/>
+<text class="nl" x="387" y="728" text-anchor="start" fill="#a78bfa" style="font-weight:600">💰  Valores idênticos?</text>
+<text class="nl nl-sm" x="387" y="748" text-anchor="start">Mesmo valor em todas as transações</text>
+<text class="nl nl-sm" x="387" y="765" text-anchor="start">Ex: R$ 49,90 repetido 4 vezes</text>
+
+<rect x="784" y="704" width="296" height="78" rx="10" fill="rgba(167,139,250,0.08)" stroke="rgba(167,139,250,0.2)" stroke-width="1"/>
+<text class="nl" x="804" y="728" text-anchor="start" fill="#a78bfa" style="font-weight:600">⏱  Horários consecutivos &lt;5 min?</text>
+<text class="nl nl-sm" x="804" y="748" text-anchor="start">Intervalo entre compras ≤ 5 minutos</text>
+<text class="nl nl-sm" x="804" y="765" text-anchor="start">Padrão de duplicidade técnica</text>
+
+<!-- conectores subcritérios -->
+<line x1="550" y1="700" x2="550" y2="704"   stroke="#a78bfa" stroke-width="1.5" marker-end="url(#c0p)"/>
+<line x1="173" y1="700" x2="1080" y2="700" stroke="#a78bfa" stroke-width="1" opacity="0.2"/>
+<line x1="173" y1="700" x2="173" y2="704"   stroke="#a78bfa" stroke-width="1.5" marker-end="url(#c0p)"/>
+<line x1="1080" y1="700" x2="1080" y2="704"  stroke="#a78bfa" stroke-width="1.5" marker-end="url(#c0p)"/>
+
+<!-- D4 -->
+<line x1="550" y1="782" x2="550" y2="830" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#c0)"/>
+<polygon points="550,830 730,878 550,926 370,878" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+<text class="nl-dec" x="550" y="871">Os 3 critérios são atendidos</text>
+<text class="nl-dec" x="550" y="889" style="font-size:9px;fill:rgba(255,255,255,0.35);font-weight:400">ao mesmo tempo?</text>
+<!-- Sim → mensageria -->
+<path d="M730,878 L880,878" fill="none" stroke="#4ade80" stroke-width="1.5" marker-end="url(#c0g)"/>
+<text x="738" y="868" class="el" fill="#4ade80">Sim — exceção</text>
+<rect x="880" y="852" width="200" height="52" rx="10" fill="rgba(74,222,128,0.08)" stroke="rgba(74,222,128,0.25)" stroke-width="1"/>
+<text class="nl" x="980" y="871" fill="#4ade80">✅  Todas as</text>
+<text class="nl nl-sm" x="980" y="889">Suspeitas do Dia</text>
+<path d="M980,904 L980,960 L730,960" fill="none" stroke="rgba(74,222,128,0.3)" stroke-width="1" stroke-dasharray="5,4" marker-end="url(#c0g)" opacity="0.7"/>
+<!-- Não → humano -->
+<path d="M370,878 L150,878" fill="none" stroke="#fb923c" stroke-width="1.5" marker-end="url(#c0o)"/>
+<text x="162" y="868" class="el" fill="#fb923c">Não — humano</text>
+<rect x="30" y="852" width="190" height="52" rx="10" fill="rgba(251,146,60,0.08)" stroke="rgba(251,146,60,0.2)" stroke-width="1"/>
+<text class="nl" x="125" y="871" fill="#fb923c">👤  Humano</text>
+<text class="nl nl-sm" x="125" y="889">Mais de 3 · risco alto</text>
+<path d="M125,904 L125,960 L370,960" fill="none" stroke="rgba(251,146,60,0.3)" stroke-width="1" stroke-dasharray="5,4" marker-end="url(#c0)" opacity="0.7"/>
+<!-- Humano D1 converge -->
+<path d="M900,396 L1050,396 L1050,972 L730,972" fill="none" stroke="rgba(251,146,60,0.15)" stroke-width="1" stroke-dasharray="5,4" marker-end="url(#c0)" opacity="0.5"/>
+
+<!-- SAÍDA -->
+<rect x="310" y="930" width="420" height="52" rx="26" fill="url(#gs3)"/>
+<text class="nl" x="520" y="950" style="font-weight:700">✅  Segue para Mensageria Automática</text>
+<text class="nl nl-sm" x="520" y="968">Transações selecionadas incluídas na mensagem</text>
+<text x="520" y="1015" font-family="Outfit,sans-serif" font-size="10" fill="rgba(251,146,60,0.5)" text-anchor="middle">👤  Casos encaminhados ao humano retornam ao motor de regras principal</text>
+</svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>

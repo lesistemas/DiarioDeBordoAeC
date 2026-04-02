@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robô de Retorno — Bradescard</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#050A14; --red:#CC0000; --text:#E8EDF5; --muted:#8A9AB5; --border:rgba(255,255,255,0.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);min-height:100vh;overflow-x:hidden;}
+  body::before{
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(ellipse 70% 50% at 5%  15%,rgba(204,0,0,0.08)   0%,transparent 60%),
+      radial-gradient(ellipse 50% 40% at 95% 10%,rgba(15,82,160,0.07)  0%,transparent 55%),
+      radial-gradient(ellipse 60% 45% at 80% 85%,rgba(26,107,58,0.06)  0%,transparent 55%);
+  }
+  body::after{
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);
+    background-size:48px 48px;
+  }
+  header{position:relative;z-index:10;padding:38px 56px 0;display:flex;align-items:flex-start;justify-content:space-between;}
+  .brand{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--red);}
+  .title{font-size:30px;font-weight:800;line-height:1.1;margin-top:4px;}
+  .sub  {font-size:13px;color:var(--muted);margin-top:5px;}
+  .badge{display:flex;align-items:center;gap:8px;padding:9px 18px;background:rgba(10,107,107,0.15);border:1px solid rgba(10,180,180,0.25);border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(80,220,220,0.85);letter-spacing:1px;}
+  .badge::before{content:'';width:7px;height:7px;border-radius:50%;background:rgba(80,220,220,0.8);box-shadow:0 0 8px rgba(80,220,220,0.6);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  main{position:relative;z-index:1;padding:32px 56px 100px;}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:30px;padding:14px 24px;background:rgba(255,255,255,0.025);border:1px solid var(--border);border-radius:12px;}
+  .li{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);}
+  .ld{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  svg{width:100%;display:block;overflow:visible;}
+
+  /* node text */
+  .lbl  {font-family:'Outfit',sans-serif;font-size:13.5px;font-weight:700;fill:#fff;dominant-baseline:middle;text-anchor:middle;pointer-events:none;}
+  .sub1 {font-size:11.5px;font-weight:400;fill:rgba(255,255,255,0.62);dominant-baseline:middle;text-anchor:middle;pointer-events:none;}
+  .sub2 {font-size:10px;font-weight:400;fill:rgba(255,255,255,0.38);dominant-baseline:middle;text-anchor:middle;pointer-events:none;}
+  .dec  {font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:700;fill:#fff;dominant-baseline:middle;text-anchor:middle;pointer-events:none;}
+  .mono {font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;fill:rgba(255,255,255,0.38);text-anchor:middle;dominant-baseline:middle;pointer-events:none;letter-spacing:3px;text-transform:uppercase;}
+  .elbl {font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;}
+
+  /* tooltip */
+  .tip{position:fixed;background:rgba(8,18,36,0.97);border:1px solid rgba(204,0,0,0.4);border-radius:11px;padding:13px 17px;font-size:13.5px;line-height:1.65;color:var(--text);max-width:270px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:300;backdrop-filter:blur(12px);}
+  .tip.show{opacity:1;}
+  .tip strong{display:block;font-size:11px;font-family:'JetBrains Mono',monospace;color:rgba(120,200,255,0.85);margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase;}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand">Bradescard · Prevenção a Fraudes</div>
+    <div class="title">Robô de Retorno</div>
+    <div class="sub">Processamento automático da resposta do cliente ao alerta de fraude</div>
+  </div>
+  <div class="badge">AGUARDANDO FILA · EVENT-DRIVEN</div>
+</header>
+
+<main>
+
+<div class="legend" style="margin-top:28px;">
+  <div class="li"><div class="ld" style="background:#6B2FA0"></div>Origem externa</div>
+  <div class="li"><div class="ld" style="background:#CC0000"></div>Início / Fim</div>
+  <div class="li"><div class="ld" style="background:#1C3A6B"></div>Ação interna</div>
+  <div class="li"><div class="ld" style="background:#0A6B6B"></div>Consulta / Registro externo</div>
+  <div class="li"><div class="ld" style="background:#1A6B3A"></div>Desfecho positivo</div>
+  <div class="li"><div class="ld" style="background:#C25000"></div>Encaminha ao atendimento</div>
+  <div class="li"><div class="ld" style="background:#7A5500"></div>Manutenção / Aguarda</div>
+</div>
+
+<!--
+  GRID DE COORDENADAS (y base de cada bloco, altura=68 exceto losangos):
+  Blocos h=68, gap entre blocos = 28  → próximo y = y_anterior + 68 + 28 = +96
+  Losangos: altura visual ~110 (±55 do centro)
+
+  EXTERNO:
+    Cliente resp    : y=40  (h=68)
+    Dispara fila    : y=40 (x=574, lado direito)
+    Seta entre      : y=74
+  Seta cruzando divisor
+
+  ROBÔ:
+    y=240  Início (cápsula)           h=68
+    y=364  Inicia processamento       h=68
+    y=488  Verificação horário (losango, cy=522)
+      └─ Aguarda manutenção (esquerda, y=606)
+    y=656  Lê dados da mensagem       h=68
+    y=780  Consulta histórico         h=68
+    y=904  Identifica regras da fila  h=68
+    y=1028 Atualiza cadastro          h=68
+    y=1152 BRANCH fila (losango cy=1186)
+      └─ Encerra informativa (esquerda, y=1270)
+    y=1310 BRANCH resposta (losango cy=1344)
+
+    BRANCH SIM (direita, x=790):
+      y=1438  Desbloqueia cartão      h=68
+      y=1562  Proteção 2 dias        h=68
+      y=1686  Registra histórico     h=68
+      y=1810  Encerra Case Manager   h=68
+      y=1934  Registra conclusão     h=68
+
+    BRANCH NÃO (centro, x=480):
+      y=1438  Registra histórico mainframe  h=78
+      y=1562  BRANCH salvar CM? (losango cy=1601)
+        └─ Sim (direita x=790, y=1676)  h=68
+        └─ Não (esquerda, passa direto)
+      y=1766  Encaminha atendimento humano  h=68
+
+    FIM convergência:
+      y=1980  Caso concluído (cápsula)  h=68
+-->
+
+<svg viewBox="0 0 1060 2100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <!-- arrows -->
+  <marker id="a"  markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3z" fill="rgba(255,255,255,0.28)"/></marker>
+  <marker id="ag" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3z" fill="rgba(40,180,80,0.8)"/></marker>
+  <marker id="ao" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3z" fill="rgba(220,100,0,0.85)"/></marker>
+  <marker id="ap" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3z" fill="rgba(130,70,220,0.8)"/></marker>
+  <marker id="at" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3z" fill="rgba(10,180,180,0.8)"/></marker>
+  <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3z" fill="rgba(200,0,0,0.8)"/></marker>
+
+  <!-- fills -->
+  <linearGradient id="gExt"    x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1C0F3A"/><stop offset="100%" stop-color="#0E0820"/></linearGradient>
+  <linearGradient id="gRed"    x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#EE1010"/><stop offset="100%" stop-color="#880000"/></linearGradient>
+  <linearGradient id="gAct"    x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1E3A70"/><stop offset="100%" stop-color="#0D1E3E"/></linearGradient>
+  <linearGradient id="gApi"    x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#084848"/><stop offset="100%" stop-color="#042424"/></linearGradient>
+  <linearGradient id="gDec"    x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1A2E50"/><stop offset="100%" stop-color="#0C1828"/></linearGradient>
+  <linearGradient id="gGreen"  x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1A5C2A"/><stop offset="100%" stop-color="#0A2C14"/></linearGradient>
+  <linearGradient id="gOrange" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8C3800"/><stop offset="100%" stop-color="#4A1C00"/></linearGradient>
+  <linearGradient id="gGold"   x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4A3200"/><stop offset="100%" stop-color="#241800"/></linearGradient>
+  <linearGradient id="gPurple" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#501880"/><stop offset="100%" stop-color="#280840"/></linearGradient>
+  <linearGradient id="shine"   x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,0.10)"/><stop offset="35%" stop-color="rgba(255,255,255,0)"/></linearGradient>
+</defs>
+
+<!-- ─────────────────────────────────────────
+     ZONA EXTERNA
+     ───────────────────────────────────────── -->
+<rect x="100" y="14" width="860" height="176" rx="14"
+      fill="rgba(107,47,160,0.05)" stroke="rgba(107,47,160,0.22)"
+      stroke-width="1.5" stroke-dasharray="7,4"/>
+<text x="530" y="36" class="mono" fill="rgba(160,100,240,0.45)">origem externa — sistema de atendimento</text>
+
+<!-- Cliente responde -->
+<g data-tip="O cliente recebeu um alerta no celular sobre uma transação suspeita. Aqui ele informa se reconhece ou não aquela compra." data-tip-title="Cliente responde ao alerta">
+  <rect x="116" y="54" width="250" height="102" rx="11" fill="url(#gExt)" stroke="rgba(160,100,240,0.3)" stroke-width="1.5"/>
+  <rect x="116" y="54" width="250" height="38" rx="11" fill="url(#shine)"/>
+  <text class="lbl" x="241" y="81">📱  Cliente responde</text>
+  <text class="sub1" x="241" y="104">SIM · NÃO · Sem resposta</text>
+  <text class="sub2" x="241" y="126">ao alerta enviado pelo Robô Alerta Digital</text>
+</g>
+
+<!-- seta direita -->
+<line x1="366" y1="105" x2="446" y2="105" stroke="rgba(107,47,160,0.5)" stroke-width="1.8" marker-end="url(#ap)"/>
+
+<!-- Dispara fila -->
+<g data-tip="O sistema registra a resposta do cliente e notifica automaticamente o Robô de Retorno para iniciar o processamento." data-tip-title="Notificação automática ao robô">
+  <rect x="448" y="54" width="490" height="102" rx="11" fill="url(#gExt)" stroke="rgba(107,47,160,0.3)" stroke-width="1.5"/>
+  <rect x="448" y="54" width="490" height="38" rx="11" fill="url(#shine)"/>
+  <text class="lbl" x="693" y="81">📨  Sistema registra e notifica o Robô</text>
+  <text class="sub1" x="693" y="104">Resposta salva · fila de processamento acionada</text>
+  <text class="sub2" x="693" y="126">sem intervenção manual necessária</text>
+</g>
+
+<!-- divisor -->
+<line x1="60" y1="216" x2="1000" y2="216" stroke="rgba(204,0,0,0.18)" stroke-width="1" stroke-dasharray="5,4"/>
+<text x="530" y="228" class="mono" fill="rgba(204,0,0,0.35)">Robô de Retorno — inicia aqui</text>
+
+<!-- seta cruzando divisor -->
+<path d="M693,156 L693,208 L530,246" fill="none" stroke="rgba(204,0,0,0.4)" stroke-width="2" marker-end="url(#ar)"/>
+
+<!-- ─────────────────────────────────────────
+     INÍCIO DO ROBÔ
+     ───────────────────────────────────────── -->
+
+<!-- y=250 · Robô recebe -->
+<g data-tip="O robô fica em espera permanente. Ao chegar uma mensagem, ele assume o processamento. Só confirma a conclusão depois que tudo terminar com sucesso — nenhum caso é perdido." data-tip-title="Robô recebe a mensagem">
+  <rect x="280" y="250" width="500" height="68" rx="34" fill="url(#gRed)" stroke="rgba(255,100,100,0.35)" stroke-width="1.5"/>
+  <rect x="280" y="250" width="500" height="34" rx="34" fill="url(#shine)"/>
+  <text class="lbl" x="530" y="273">🤖  Robô recebe a mensagem da fila</text>
+  <text class="sub1" x="530" y="297">Inicia processamento · aguarda conclusão para confirmar</text>
+</g>
+
+<!-- seta -->
+<line x1="530" y1="318" x2="530" y2="366" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" marker-end="url(#a)"/>
+
+<!-- y=370 · Inicia processamento -->
+<g data-tip="O robô prepara o ambiente de trabalho: registra a hora de início, carrega as configurações e prepara o controle interno do caso." data-tip-title="Preparação do processamento">
+  <rect x="280" y="370" width="500" height="68" rx="11" fill="url(#gAct)" stroke="rgba(80,130,220,0.22)" stroke-width="1"/>
+  <rect x="280" y="370" width="500" height="30" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="530" y="392">⚙  Inicia o processamento</text>
+  <text class="sub1" x="530" y="415">Registra hora de início · carrega configurações de operação</text>
+</g>
+
+<!-- seta -->
+<line x1="530" y1="438" x2="530" y2="494" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" marker-end="url(#a)"/>
+
+<!-- ─────────────────────────────────────────
+     LOSANGO: JANELA DE MANUTENÇÃO  cy=542
+     ───────────────────────────────────────── -->
+<g data-tip="O sistema de consulta ao mainframe fica indisponível entre 22h e 03h30 para manutenção. O robô detecta esse horário e devolve a mensagem para ser processada depois — sem perda de dados." data-tip-title="Verificação de horário">
+  <polygon points="530,494 710,542 530,590 350,542" fill="url(#gDec)" stroke="rgba(200,160,0,0.28)" stroke-width="1.5"/>
+  <text class="dec"  x="530" y="534">⏰  Está em horário de manutenção?</text>
+  <text class="sub1" x="530" y="558">Sistema indisponível das 22h às 03h30</text>
+</g>
+
+<!-- Sim → Aguarda (esquerda) -->
+<path d="M350,542 L180,542 L180,626" fill="none" stroke="rgba(200,155,0,0.5)" stroke-width="1.8" marker-end="url(#a)"/>
+<text x="248" y="533" class="elbl" fill="rgba(220,175,30,0.8)">Sim</text>
+<g data-tip="A mensagem é devolvida para a fila automaticamente. Será processada assim que o sistema estiver disponível — sem intervenção humana." data-tip-title="Reprocessamento automático">
+  <rect x="84" y="626" width="192" height="96" rx="11" fill="url(#gGold)" stroke="rgba(190,145,0,0.38)" stroke-width="1.5"/>
+  <rect x="84" y="626" width="192" height="38" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="180" y="651">⏳  Aguarda</text>
+  <text class="sub1" x="180" y="675">Reprocessa após 03h30</text>
+  <text class="sub2" x="180" y="696">sem perda de dados</text>
+</g>
+
+<!-- Não → continua -->
+<line x1="530" y1="590" x2="530" y2="650" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" marker-end="url(#a)"/>
+<text x="544" y="624" class="elbl" fill="rgba(100,220,100,0.8)">Não</text>
+
+<!-- ─────────────────────────────────────────
+     y=650 · Lê dados
+     ───────────────────────────────────────── -->
+<g data-tip="O robô lê a mensagem recebida: identifica o número do caso, quem é o cliente, qual cartão e qual foi a resposta dada ao alerta." data-tip-title="Leitura dos dados do caso">
+  <rect x="280" y="650" width="500" height="68" rx="11" fill="url(#gAct)" stroke="rgba(80,130,220,0.22)" stroke-width="1"/>
+  <rect x="280" y="650" width="500" height="30" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="530" y="672">📋  Lê os dados da mensagem recebida</text>
+  <text class="sub1" x="530" y="695">Nº do caso · dados do cliente · resposta ao alerta</text>
+</g>
+
+<line x1="530" y1="718" x2="530" y2="766" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" marker-end="url(#a)"/>
+
+<!-- y=766 · Consulta histórico -->
+<g data-tip="O robô busca na base do Alerta Digital as informações do caso: número do cartão, fila de origem e o histórico completo das transações que geraram o alerta." data-tip-title="Consulta ao histórico do caso">
+  <rect x="280" y="766" width="500" height="68" rx="11" fill="url(#gApi)" stroke="rgba(10,150,150,0.28)" stroke-width="1"/>
+  <rect x="280" y="766" width="500" height="30" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="530" y="788">🔍  Consulta o histórico do caso</text>
+  <text class="sub1" x="530" y="811">Cartão · fila de origem · transações que geraram o alerta</text>
+</g>
+
+<line x1="530" y1="834" x2="530" y2="882" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" marker-end="url(#a)"/>
+
+<!-- y=882 · Identifica regras da fila -->
+<g data-tip="Cada fila tem regras diferentes de encerramento. O robô identifica de qual fila este caso veio e carrega as instruções específicas — por exemplo, se é obrigatório salvar no Case Manager antes de encaminhar." data-tip-title="Carrega as regras da fila">
+  <rect x="280" y="882" width="500" height="68" rx="11" fill="url(#gAct)" stroke="rgba(80,130,220,0.22)" stroke-width="1"/>
+  <rect x="280" y="882" width="500" height="30" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="530" y="904">🗂  Carrega as regras da fila de origem</text>
+  <text class="sub1" x="530" y="927">Cada fila tem critérios específicos de encerramento</text>
+</g>
+
+<line x1="530" y1="950" x2="530" y2="998" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" marker-end="url(#a)"/>
+
+<!-- y=998 · Atualiza cadastro -->
+<g data-tip="O cadastro do caso na base de dados é atualizado com as informações mais recentes, garantindo que o histórico esteja sempre completo e auditável." data-tip-title="Atualiza o cadastro do caso">
+  <rect x="280" y="998" width="500" height="68" rx="11" fill="url(#gApi)" stroke="rgba(10,150,150,0.28)" stroke-width="1"/>
+  <rect x="280" y="998" width="500" height="30" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="530" y="1020">🔄  Atualiza o cadastro do caso</text>
+  <text class="sub1" x="530" y="1043">Mantém o histórico completo e auditável na base de dados</text>
+</g>
+
+<line x1="530" y1="1066" x2="530" y2="1122" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" marker-end="url(#a)"/>
+
+<!-- ─────────────────────────────────────────
+     LOSANGO: TIPO DE FILA  cy=1170
+     ───────────────────────────────────────── -->
+<g data-tip="Filas informativas servem apenas para registro — o robô encerra sem nenhuma ação adicional. Filas bidirecionais aguardam a resposta do cliente e exigem ações no sistema (desbloqueio, registro, encaminhamento)." data-tip-title="Qual é o tipo desta fila?">
+  <polygon points="530,1122 720,1170 530,1218 340,1170" fill="url(#gDec)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+  <text class="dec"  x="530" y="1162">🔀  Esta fila exige resposta do cliente?</text>
+  <text class="sub1" x="530" y="1184">Informativa  ·  ou  ·  Bidirecional</text>
+</g>
+
+<!-- Informativa → esquerda (encerra direto) -->
+<path d="M340,1170 L148,1170 L148,1254" fill="none" stroke="rgba(26,140,60,0.55)" stroke-width="1.8" marker-end="url(#ag)"/>
+<text x="218" y="1160" class="elbl" fill="rgba(50,200,90,0.85)">Informativa</text>
+<g data-tip="Fila apenas de registro. Não há resposta do cliente para tratar. O robô documenta a conclusão e encerra o caso automaticamente." data-tip-title="Fila informativa — encerra">
+  <rect x="52" y="1254" width="192" height="96" rx="11" fill="url(#gGreen)" stroke="rgba(40,160,70,0.35)" stroke-width="1.5"/>
+  <rect x="52" y="1254" width="192" height="38" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="148" y="1279">✅  Encerra</text>
+  <text class="sub1" x="148" y="1303">Caso registrado</text>
+  <text class="sub2" x="148" y="1324">como concluído</text>
+</g>
+
+<!-- Bidirecional → continua -->
+<line x1="530" y1="1218" x2="530" y2="1274" stroke="rgba(255,255,255,0.2)" stroke-width="1.8" marker-end="url(#a)"/>
+<text x="544" y="1250" class="elbl" fill="rgba(100,220,100,0.8)">Bidirecional</text>
+
+<!-- ─────────────────────────────────────────
+     LOSANGO: RESPOSTA DO CLIENTE  cy=1322
+     ───────────────────────────────────────── -->
+<g data-tip="O robô avalia a resposta dada pelo cliente ao alerta. Se o cliente reconheceu a compra, segue o caminho SIM. Se negou ou não respondeu no prazo, segue o caminho NÃO." data-tip-title="O cliente reconheceu a compra?">
+  <polygon points="530,1274 720,1322 530,1370 340,1322" fill="url(#gDec)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+  <text class="dec"  x="530" y="1314">💬  O cliente reconheceu a compra?</text>
+  <text class="sub1" x="530" y="1336">SIM  ·  ou  ·  NÃO / Sem resposta</text>
+</g>
+
+
+<!-- ═══════════════════════════════════════════
+     BRANCH SIM  (x=830)
+     ═══════════════════════════════════════════ -->
+<path d="M720,1322 L850,1322 L850,1402" fill="none" stroke="rgba(26,140,60,0.65)" stroke-width="1.8" marker-end="url(#ag)"/>
+<text x="728" y="1311" class="elbl" fill="rgba(50,200,90,0.85)">SIM</text>
+
+<!-- SIM y=1402 · Desbloqueia cartão -->
+<g data-tip="O robô acessa o sistema central da Bradescard e desbloqueia o cartão do cliente, liberando o uso imediato. O processo é automático — sem necessidade de ligação ou atendimento manual." data-tip-title="Cartão desbloqueado automaticamente">
+  <rect x="720" y="1402" width="260" height="68" rx="11" fill="url(#gGreen)" stroke="rgba(40,160,70,0.32)" stroke-width="1"/>
+  <rect x="720" y="1402" width="260" height="30" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="850" y="1424">🔓  Desbloqueia o cartão</text>
+  <text class="sub1" x="850" y="1447">Sistema central · liberação imediata</text>
+</g>
+<line x1="850" y1="1470" x2="850" y2="1526" stroke="rgba(26,140,60,0.45)" stroke-width="1.8" marker-end="url(#ag)"/>
+
+<!-- SIM y=1526 · Proteção contra novo alerta -->
+<g data-tip="Para evitar que o sistema dispare um novo alerta desnecessário sobre a mesma transação, o robô aplica uma proteção temporária de 2 dias no cadastro do cliente." data-tip-title="Proteção contra novo alerta">
+  <rect x="720" y="1526" width="260" height="68" rx="11" fill="url(#gGreen)" stroke="rgba(40,160,70,0.32)" stroke-width="1"/>
+  <rect x="720" y="1526" width="260" height="30" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="850" y="1548">🛡  Proteção de 2 dias</text>
+  <text class="sub1" x="850" y="1571">Evita novo alerta sobre o mesmo caso</text>
+</g>
+<line x1="850" y1="1594" x2="850" y2="1650" stroke="rgba(26,140,60,0.45)" stroke-width="1.8" marker-end="url(#ag)"/>
+
+<!-- SIM y=1650 · Registra histórico -->
+<g data-tip="O robô documenta no mainframe que o alerta foi enviado e o cliente confirmou a transação. Esse registro fica permanente no histórico do cliente." data-tip-title="Histórico atualizado">
+  <rect x="720" y="1650" width="260" height="68" rx="11" fill="url(#gAct)" stroke="rgba(80,130,220,0.22)" stroke-width="1"/>
+  <rect x="720" y="1650" width="260" height="30" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="850" y="1672">📝  Registra no histórico</text>
+  <text class="sub1" x="850" y="1695">"Alerta enviado — cliente confirmou"</text>
+</g>
+<line x1="850" y1="1718" x2="850" y2="1774" stroke="rgba(26,140,60,0.45)" stroke-width="1.8" marker-end="url(#ag)"/>
+
+<!-- SIM y=1774 · Encerra Case Manager -->
+<g data-tip="O caso é encerrado no sistema de gestão de ocorrências (Case Manager) com o resultado de que a transação foi reconhecida pelo cliente — sem fraude." data-tip-title="Caso encerrado — sem fraude">
+  <rect x="720" y="1774" width="260" height="68" rx="11" fill="url(#gApi)" stroke="rgba(10,150,150,0.28)" stroke-width="1"/>
+  <rect x="720" y="1774" width="260" height="30" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="850" y="1796">📋  Encerra no Case Manager</text>
+  <text class="sub1" x="850" y="1819">Resultado: transação reconhecida</text>
+</g>
+<line x1="850" y1="1842" x2="850" y2="1898" stroke="rgba(26,140,60,0.45)" stroke-width="1.8" marker-end="url(#ag)"/>
+
+<!-- SIM y=1898 · Registra conclusão na API -->
+<g data-tip="A base de dados do Alerta Digital recebe a confirmação de encerramento do caso — cartão desbloqueado, cliente atendido com sucesso." data-tip-title="Encerramento registrado">
+  <rect x="720" y="1898" width="260" height="68" rx="11" fill="url(#gGreen)" stroke="rgba(40,160,70,0.32)" stroke-width="1"/>
+  <rect x="720" y="1898" width="260" height="30" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="850" y="1920">✅  Registra conclusão</text>
+  <text class="sub1" x="850" y="1943">Cartão liberado · caso encerrado</text>
+</g>
+
+
+<!-- ═══════════════════════════════════════════
+     BRANCH NÃO  (spine x=530)
+     ═══════════════════════════════════════════ -->
+<line x1="530" y1="1370" x2="530" y2="1426" stroke="rgba(200,80,0,0.7)" stroke-width="1.8" marker-end="url(#ao)"/>
+<text x="545" y="1402" class="elbl" fill="rgba(240,120,30,0.85)">NÃO / Sem resposta</text>
+
+<!-- NÃO y=1426 · Registra histórico mainframe -->
+<g data-tip="O robô documenta no mainframe que o cliente recebeu o alerta e não reconheceu a transação — ou não respondeu no prazo. Esse registro fica permanente no histórico do cliente para eventuais consultas futuras." data-tip-title="Histórico atualizado — cliente não confirmou">
+  <rect x="350" y="1426" width="350" height="78" rx="11" fill="url(#gAct)" stroke="rgba(80,130,220,0.22)" stroke-width="1"/>
+  <rect x="350" y="1426" width="350" height="32" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="530" y="1451">📝  Registra no histórico do mainframe</text>
+  <text class="sub1" x="530" y="1476">"Cliente não confirmou a transação alertada"</text>
+  <text class="sub2" x="530" y="1493">Anotação permanente · disponível para consulta futura</text>
+</g>
+
+<line x1="530" y1="1504" x2="530" y2="1566" stroke="rgba(200,80,0,0.55)" stroke-width="1.8" marker-end="url(#ao)"/>
+<line x1="530" y1="1604" x2="530" y2="1828" stroke="rgba(200,80,0,0.55)" stroke-width="1.8" marker-end="url(#ao)"></line>
+<!-- NÃO LOSANGO: Salvar Resposta Cartão no CM?  cy=1614 -->
+<g data-tip="Algumas filas (como a Fila Teto) exigem que a resposta do cliente seja salva no sistema de ocorrências antes de encaminhar ao analista. Outras filas encaminham diretamente." data-tip-title="Salvar Resposta do Cartão no Case Manager?">
+  <polygon points="530,1566 700,1614 530,1662 360,1614" fill="url(#gDec)" stroke="rgba(200,80,0,0.28)" stroke-width="1.5"/>
+  <text class="dec"  x="530" y="1604">📋  Salvar Resposta Cartão</text>
+  <text class="sub1" x="530" y="1626">no Case Manager?  (ex: Fila Teto)</text>
+</g>
+
+<!-- Sim → SalvarCartão (ESQUERDA) -->
+<path d="M360,1614 L200,1614 L200,1694" fill="none" stroke="rgba(10,170,170,0.6)" stroke-width="1.8" marker-end="url(#at)"/>
+<text x="222" y="1604" class="elbl" fill="rgba(40,200,200,0.85)">Sim</text>
+<g data-tip="A resposta do cliente é salva formalmente no sistema de ocorrências (Case Manager). Isso garante rastreabilidade total para o analista que irá atender o caso." data-tip-title="Salva resposta do cartão no Case Manager">
+  <rect x="74" y="1694" width="252" height="78" rx="11" fill="url(#gApi)" stroke="rgba(10,150,150,0.3)" stroke-width="1.5"/>
+  <rect x="74" y="1694" width="252" height="32" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="200" y="1718">📋  Salva Resposta Cartão</text>
+  <text class="sub1" x="00" y="1742">no Case Manager</text>
+  <text class="sub2" x="200" y="1759">Rastreabilidade para o analista</text>
+</g>
+<!-- Volta para spine -->
+<path d="M200,1772 L200,2060 L275,2060" fill="none" stroke="rgba(10,150,150,0.3)" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#a)"/>
+<line x1="530" y1="1904" x2="530" y2="2018" stroke="rgba(200,80,0,0.55)" stroke-width="1.8" marker-end="url(#ao)"></line>
+
+
+<!-- NÃO y=1832 · Encaminha atendimento humano (convergência) -->
+<g data-tip="O caso é encaminhado para um analista de atendimento. O sistema já foi atualizado com todas as informações necessárias para que o analista possa agir com rapidez." data-tip-title="Encaminhado ao analista">
+  <rect x="350" y="1832" width="360" height="68" rx="11" fill="url(#gOrange)" stroke="rgba(200,90,0,0.32)" stroke-width="1.5"/>
+  <rect x="350" y="1832" width="360" height="30" rx="11" fill="url(#shine)"/>
+  <text class="lbl"  x="530" y="1854">👤  Encaminha ao analista de atendimento</text>
+  <text class="sub1" x="530" y="1877">Sistema atualizado · analista pode agir imediatamente</text>
+</g>
+
+
+<!-- ═══════════════════════════════════════════
+     CONVERGÊNCIA → FIM
+     ═══════════════════════════════════════════ -->
+
+<!-- SIM converge -->
+<path d="M850,1966 L850,2026 L660,2026" fill="none" stroke="rgba(26,140,60,0.14)" stroke-width="1.5" stroke-dasharray="6,5" marker-end="url(#a)"/>
+<!-- NÃO converge -->
+<line x1="480" y1="1900" x2="480" y2="2006" stroke="rgba(200,80,0,0.14)" stroke-width="1.5" stroke-dasharray="6,5" marker-end="url(#a)"/>
+<!-- INFO converge -->
+<path d="M148,1350 L148,2026 L320,2026" fill="none" stroke="rgba(26,140,60,0.1)" stroke-width="1.5" stroke-dasharray="6,5" marker-end="url(#a)"/>
+
+<!-- y=2026 · FIM -->
+<g data-tip="O robô confirma o processamento e volta imediatamente a aguardar o próximo caso na fila. Cada mensagem é tratada de forma individual, sem interferência entre os casos." data-tip-title="Pronto para o próximo caso">
+  <rect x="280" y="2026" width="500" height="68" rx="34" fill="url(#gRed)" stroke="rgba(255,100,100,0.32)" stroke-width="1.5"/>
+  <rect x="280" y="2026" width="500" height="34" rx="34" fill="url(#shine)"/>
+  <text class="lbl"  x="530" y="2049">✅  Caso concluído · aguarda o próximo</text>
+  <text class="sub1" x="530" y="2072">Mensagem confirmada · robô em espera</text>
+</g>
+
+<!-- Erros -->
+<g data-tip="Erros de regra de negócio (dados inválidos, por exemplo) descartam o caso sem nova tentativa. Erros técnicos temporários (sistema fora do ar) devolvem o caso para a fila — ele será reprocessado automaticamente. Erros graves geram um alerta para a equipe técnica." data-tip-title="O que acontece em caso de falha?">
+  <rect x="820" y="1966" width="196" height="120" rx="10" fill="url(#gPurple)" stroke="rgba(140,60,200,0.42)" stroke-width="1.5"/>
+  <rect x="820" y="1966" width="196" height="42" rx="10" fill="url(#shine)"/>
+  <text class="lbl"  x="918" y="1993" font-size="13">⚠️  Em caso de falha</text>
+  <text class="sub1" x="918" y="2016">Regra: descarta o caso</text>
+  <text class="sub1" x="918" y="2037">Técnico: reenvia p/ fila</text>
+  <text class="sub1" x="918" y="2058">Grave: alerta a equipe</text>
+</g>
+
+</svg>
+
+</main>
+
+<div class="tip" id="tip"></div>
+<script>
+  const tip = document.getElementById('tip');
+  document.querySelectorAll('[data-tip]').forEach(el => {
+    el.style.cursor = 'pointer';
+    el.addEventListener('mouseenter', e => {
+      const t = e.currentTarget.dataset.tipTitle || '';
+      const b = e.currentTarget.dataset.tip || '';
+      tip.innerHTML = (t ? `<strong>${t}</strong>` : '') + b;
+      tip.classList.add('show');
+    });
+    el.addEventListener('mousemove', e => {
+      const w = tip.offsetWidth;
+      const l = e.clientX + 22 + w > window.innerWidth ? e.clientX - w - 16 : e.clientX + 22;
+      tip.style.left = l + 'px';
+      tip.style.top  = (e.clientY - 10) + 'px';
+    });
+    el.addEventListener('mouseleave', () => tip.classList.remove('show'));
+  });
+</script>
+</body>
+</html>
